@@ -1,0 +1,57 @@
+@{ ViewData["Title"] = "SmartSociety"; }
+
+<nav class="top-guest-nav">
+    <a class="brand" asp-controller="Home" asp-action="Index">
+        <span class="brand-mark">S</span> SmartSociety
+    </a>
+    <div class="d-flex align-items-center gap-2">
+        <a asp-controller="Home" asp-action="Sitemap" class="btn btn-outline-secondary btn-sm d-none d-sm-inline-flex align-items-center gap-1"><i class="bi bi-diagram-3-fill"></i> Sitemap</a>
+        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-primary btn-sm">Login</a>
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-sm">Get Started</a>
+    </div>
+</nav>
+
+<div class="landing-page">
+    <div class="hero-card p-5 shadow-sm rounded-4">
+        <span class="badge bg-primary-subtle text-primary mb-3"><i class="bi bi-stars"></i> SMART COMMUNITY MANAGEMENT</span>
+        <h1 class="display-4 fw-bold">Run your entire housing society from one dashboard.</h1>
+        <p class="lead text-secondary" style="max-width:640px;">SmartSociety centralizes resident onboarding, gate security, maintenance billing, complaint resolution and amenity bookings — all in a single, secure web platform.</p>
+        <div class="d-flex gap-2 flex-wrap mt-4">
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-lg"><i class="bi bi-box-arrow-in-right"></i> Login to Dashboard</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-primary btn-lg"><i class="bi bi-person-plus-fill"></i> Create Account</a>
+            <a asp-controller="Home" asp-action="Sitemap" class="btn btn-outline-secondary btn-lg"><i class="bi bi-diagram-3-fill"></i> View Sitemap</a>
+        </div>
+    </div>
+
+    <div class="section-label mt-5">Built for every role in your community</div>
+    <div class="row g-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="bi bi-people-fill"></i></div>
+                <h5>Residents</h5>
+                <p>Vehicles, visitors, complaints, bills, bookings and community updates — all self-service.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="bi bi-shield-fill-check"></i></div>
+                <h5>Security</h5>
+                <p>Fast gate-pass verification with real-time entry and exit tracking at every checkpoint.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="bi bi-tools"></i></div>
+                <h5>Maintenance</h5>
+                <p>Assigned complaint tickets, SLA tracking and work notes to keep repairs on schedule.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="bi bi-speedometer2"></i></div>
+                <h5>Administration</h5>
+                <p>Resident onboarding, billing, amenities, notices and audit logs from one control panel.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+﻿@model SmartSociety.Models.ResidentProfile
+
+@{
+    ViewData["Title"] = "Delete Resident";
+}
+
+<div class="container mt-4">
+
+    <h2>Delete Resident</h2>
+
+    <div class="alert alert-danger">
+        <strong>Are you sure?</strong>
+        You are about to delete this resident.
+        This action cannot be undone.
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-3">
+                    Full Name
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.FullName
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    CNIC
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.CNIC
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Email
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.ApplicationUser.Email
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Phone
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.ApplicationUser.PhoneNumber
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Block
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Flat.BlockName
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Flat
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Flat.FlatNumber
+                </dd>
+
+            </dl>
+
+
+            <form asp-action="DeleteConfirmed" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Id" />
+
+                <button type="submit"
+                        class="btn btn-danger">
+                    Yes, Delete
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

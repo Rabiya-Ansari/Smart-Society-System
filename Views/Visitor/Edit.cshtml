@@ -1,0 +1,115 @@
+@model SmartSociety.Models.Visitor
+
+@{
+    ViewData["Title"] = "Edit Visitor";
+}
+
+<div class="container mt-4">
+    <h1>Edit Visitor</h1>
+
+    <form asp-action="Edit" method="post">
+
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group mb-3">
+            <label asp-for="FlatId"></label>
+
+            <select asp-for="FlatId"
+                    class="form-control"
+                    asp-items="@(ViewBag.Flats as IEnumerable<SelectListItem>)">
+                <option value="">-- Select Flat --</option>
+            </select>
+
+            <span asp-validation-for="FlatId"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="VisitorName"></label>
+
+            <input asp-for="VisitorName"
+                   class="form-control" />
+
+            <span asp-validation-for="VisitorName"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Phone"></label>
+
+            <input asp-for="Phone"
+                   class="form-control" />
+
+            <span asp-validation-for="Phone"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="VehicleNumber"></label>
+
+            <input asp-for="VehicleNumber"
+                   class="form-control" />
+
+            <span asp-validation-for="VehicleNumber"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="GatePassCode"></label>
+
+            <input asp-for="GatePassCode"
+                   class="form-control" />
+
+            <span asp-validation-for="GatePassCode"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ValidFrom"></label>
+
+            <input asp-for="ValidFrom"
+                   type="datetime-local"
+                   class="form-control" />
+
+            <span asp-validation-for="ValidFrom"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ValidUntil"></label>
+
+            <input asp-for="ValidUntil"
+                   type="datetime-local"
+                   class="form-control" />
+
+            <span asp-validation-for="ValidUntil"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="IsApproved"
+                   class="form-check-input" />
+
+            <label asp-for="IsApproved"
+                   class="form-check-label">
+            </label>
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary">
+            Update Visitor
+        </button>
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

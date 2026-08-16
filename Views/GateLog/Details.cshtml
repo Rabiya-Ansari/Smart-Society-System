@@ -1,0 +1,37 @@
+@model SmartSociety.Models.GateLog
+
+@{
+    ViewData["Title"] = "Gate Log Details";
+}
+
+<div class="container mt-4">
+
+    <h2>Gate Log Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Visitor</dt>
+        <dd class="col-sm-9">@Model.Visitor.VisitorName</dd>
+
+        <dt class="col-sm-3">Flat</dt>
+        <dd class="col-sm-9">@Model.Visitor.Flat.BlockName - @Model.Visitor.Flat.FlatNumber</dd>
+
+        <dt class="col-sm-3">Security Guard</dt>
+        <dd class="col-sm-9">@Model.SecurityGuard?.Email</dd>
+
+        <dt class="col-sm-3">Entry Time</dt>
+        <dd class="col-sm-9">@Model.EntryTime</dd>
+
+        <dt class="col-sm-3">Exit Time</dt>
+        <dd class="col-sm-9">@(Model.ExitTime?.ToString() ?? "-")</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Remarks</dt>
+        <dd class="col-sm-9">@Model.Remarks</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+
+</div>

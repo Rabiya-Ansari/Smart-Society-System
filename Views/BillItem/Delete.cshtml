@@ -1,0 +1,28 @@
+@model SmartSociety.Models.BillItem
+
+@{
+    ViewData["Title"] = "Delete Bill Item";
+}
+
+<div class="container mt-4">
+    <h2>Delete Bill Item</h2>
+
+    <div class="alert alert-danger">
+        <strong>Are you sure?</strong> This will remove the item from the bill.
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+
+        <dt class="col-sm-3">Amount</dt>
+        <dd class="col-sm-9">@Model.Amount</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-controller="Maintenance" asp-action="Details" asp-route-id="@Model.MaintenanceBillId" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

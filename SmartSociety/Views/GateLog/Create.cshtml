@@ -1,0 +1,61 @@
+@model SmartSociety.Models.GateLog
+
+@{
+    ViewData["Title"] = "Create Gate Log";
+}
+
+<div class="container mt-4">
+    <h1>Create Gate Log</h1>
+
+    <form asp-action="Create" method="post">
+
+        <div asp-validation-summary="All" class="text-danger mb-3 form-group">
+            <label asp-for="VisitorId" class="control-label"></label>
+            <select asp-for="VisitorId" class="form-control" asp-items="@(new SelectList(ViewBag.Visitors, "Value", "Text"))">
+                <option value="">-- Select Visitor --</option>
+            </select>
+            <span asp-validation-for="VisitorId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SecurityGuardId" class="control-label"></label>
+            <select asp-for="SecurityGuardId" class="form-control" asp-items="@(new SelectList(ViewBag.SecurityGuards, "Value", "Text"))">
+                <option value="">-- Select Guard --</option>
+            </select>
+            <span asp-validation-for="SecurityGuardId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EntryTime" class="control-label"></label>
+            <input asp-for="EntryTime" class="form-control" type="datetime-local" />
+            <span asp-validation-for="EntryTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ExitTime" class="control-label"></label>
+            <input asp-for="ExitTime" class="form-control" type="datetime-local" />
+            <span asp-validation-for="ExitTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control" asp-items="ViewBag.Statuses"></select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Remarks" class="control-label"></label>
+            <textarea asp-for="Remarks" class="form-control"></textarea>
+            <span asp-validation-for="Remarks" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-action="Index" class="btn btn-link">Back to List</a>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

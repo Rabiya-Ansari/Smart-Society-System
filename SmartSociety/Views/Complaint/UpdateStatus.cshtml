@@ -1,0 +1,317 @@
+@model SmartSociety.Models.Complaint
+
+@{
+    ViewData["Title"] = "Update Complaint";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2>Update Complaint</h2>
+            <p class="text-muted">
+                Update status and add work notes
+            </p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            Back to Assigned Tickets
+        </a>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- ========================================= -->
+        <!-- COMPLAINT INFORMATION -->
+        <!-- ========================================= -->
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="mb-4">
+                        Complaint Details
+                    </h5>
+
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-6">
+
+                            <label class="fw-bold">
+                                Resident
+                            </label>
+
+                            <div>
+                                @(Model.ResidentProfile?.FullName
+                                    ?? Model.ResidentProfile?.ApplicationUser?.Email
+                                    ?? $"Resident #{Model.ResidentProfileId}")
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="fw-bold">
+                                Category
+                            </label>
+
+                            <div>
+                                @Model.Category
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <label class="fw-bold">
+                            Complaint Description
+                        </label>
+
+                        <div class="border rounded p-3 bg-light">
+                            @Model.Description
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================= -->
+                    <!-- SLA -->
+                    <!-- ================================= -->
+
+                    <div class="mb-4">
+
+                        <label class="fw-bold">
+                            SLA Target
+                        </label>
+
+                        <div>
+
+                            @if (Model.SlaTargetDate.HasValue)
+                            {
+                                @Model.SlaTargetDate.Value.ToString(
+                                    "dd/MM/yyyy hh:mm tt"
+                                )
+                            }
+                            else
+                            {
+                                <span class="text-muted">
+                                    No SLA target set
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================= -->
+                    <!-- CURRENT STATUS -->
+                    <!-- ================================= -->
+
+                    <div class="mb-4">
+
+                        <label class="fw-bold">
+                            Current Status
+                        </label>
+
+                        <div>
+
+                            <span class="badge bg-secondary">
+                                @Model.Status
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================= -->
+                    <!-- UPDATE FORM -->
+                    <!-- ================================= -->
+
+                    <form asp-action="UpdateStatus"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="id"
+                               value="@Model.Id" />
+
+
+                        <!-- STATUS -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Update Status
+                            </label>
+
+                            <select name="status"
+                                    class="form-select"
+                                    required>
+
+                                @foreach (var status in
+                                    Enum.GetValues<SmartSociety.Models.Enums.ComplaintStatus>())
+                                {
+                                    <option value="@status"
+                                            selected="@(status == Model.Status)">
+                                        @status
+                                    </option>
+                                }
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- WORK NOTES -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-bold">
+                                Work Notes
+                            </label>
+
+                            <textarea name="workNotes"
+                                      class="form-control"
+                                      rows="5"
+                                      placeholder="Enter work performed, findings, repair details, etc.">@Model.WorkNotes</textarea>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="btn btn-primary">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Update Complaint
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- SLA SUMMARY -->
+        <!-- ========================================= -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="mb-4">
+                        SLA Information
+                    </h5>
+
+
+                    <div class="mb-3">
+
+                        <small class="text-muted">
+                            Created
+                        </small>
+
+                        <div class="fw-bold">
+                            @Model.CreatedAt.ToString(
+                                "dd/MM/yyyy hh:mm tt"
+                            )
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small class="text-muted">
+                            SLA Target
+                        </small>
+
+                        <div class="fw-bold">
+
+                            @if (Model.SlaTargetDate.HasValue)
+                            {
+                                @Model.SlaTargetDate.Value.ToString(
+                                    "dd/MM/yyyy hh:mm tt"
+                                )
+                            }
+                            else
+                            {
+                                <span>
+                                    Not Set
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small class="text-muted">
+                            Resolved
+                        </small>
+
+                        <div class="fw-bold">
+
+                            @if (Model.ResolvedAt.HasValue)
+                            {
+                                @Model.ResolvedAt.Value.ToString(
+                                    "dd/MM/yyyy hh:mm tt"
+                                )
+                            }
+                            else
+                            {
+                                <span class="text-muted">
+                                    Not resolved
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <small class="text-muted">
+                            Assigned Staff
+                        </small>
+
+                        <div class="fw-bold">
+                            @(Model.AssignedStaff?.FullName
+                                ?? Model.AssignedStaff?.Email
+                                ?? "Unknown")
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

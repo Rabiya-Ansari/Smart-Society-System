@@ -1,0 +1,31 @@
+@model SmartSociety.Models.FamilyMember
+
+@{
+    ViewData["Title"] = "Family Member Details";
+}
+
+<div class="container mt-4">
+
+    <h2>Family Member Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Relationship</dt>
+        <dd class="col-sm-9">@Model.Relationship</dd>
+
+        <dt class="col-sm-3">Date of Birth</dt>
+        <dd class="col-sm-9">@(Model.DateOfBirth?.ToString("yyyy-MM-dd") ?? "-")</dd>
+
+        <dt class="col-sm-3">Resident</dt>
+        <dd class="col-sm-9">@Model.ResidentProfile.FullName</dd>
+
+        <dt class="col-sm-3">Flat</dt>
+        <dd class="col-sm-9">@Model.ResidentProfile.Flat.BlockName - @Model.ResidentProfile.Flat.FlatNumber</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+
+</div>

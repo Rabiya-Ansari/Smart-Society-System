@@ -1,0 +1,47 @@
+@model SmartSociety.Models.EmergencyContact
+
+@{
+    ViewData["Title"] = "Edit Emergency Contact";
+}
+
+<div class="container mt-4">
+    <h1>Edit Emergency Contact</h1>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label asp-for="ResidentProfileId" class="control-label"></label>
+            <select asp-for="ResidentProfileId" class="form-control" asp-items="@(new SelectList(ViewBag.Residents, "Value", "Text"))">
+                <option value="">-- Select Resident --</option>
+            </select>
+            <span asp-validation-for="ResidentProfileId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Relationship" class="control-label"></label>
+            <input asp-for="Relationship" class="form-control" />
+            <span asp-validation-for="Relationship" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-link">Back to List</a>
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

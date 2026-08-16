@@ -1,0 +1,193 @@
+﻿@model SmartSociety.Models.ResidentProfile
+
+@{
+    ViewData["Title"] = "Resident Details";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Resident Details</h2>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back to Residents
+        </a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Personal Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-3">
+                    Full Name
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.FullName
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    CNIC
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.CNIC
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Email
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.ApplicationUser.Email
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Phone
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.ApplicationUser.PhoneNumber
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Block
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Flat.BlockName
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Flat Number
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Flat.FlatNumber
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    Occupancy Type
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Flat.OccupancyType
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+
+
+    <!-- Vehicles -->
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Vehicles</h5>
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Vehicles.Any())
+            {
+                <ul>
+                    @foreach (var vehicle in Model.Vehicles)
+                    {
+                        <li>
+                            @vehicle.RegistrationNumber
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">
+                    No vehicles registered.
+                </p>
+            }
+
+        </div>
+
+    </div>
+
+
+    <!-- Emergency Contacts -->
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Emergency Contacts</h5>
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.EmergencyContacts.Any())
+            {
+                <ul>
+                    @foreach (var contact in Model.EmergencyContacts)
+                    {
+                        <li>
+                            @contact.Name -
+                            @contact.PhoneNumber
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">
+                    No emergency contacts registered.
+                </p>
+            }
+
+        </div>
+
+    </div>
+
+
+    <!-- Family Members -->
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Family Members</h5>
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.FamilyMembers.Any())
+            {
+                <ul>
+                    @foreach (var member in Model.FamilyMembers)
+                    {
+                        <li>
+                            @member.Name
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">
+                    No family members registered.
+                </p>
+            }
+
+        </div>
+
+    </div>
+
+</div>

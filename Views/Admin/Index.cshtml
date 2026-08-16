@@ -1,0 +1,135 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="section-label">Property Overview</div>
+<div class="row g-3">
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card tone-primary">
+            <div class="stat-top">
+                <span class="stat-label">Total Flats</span>
+                <span class="stat-icon"><i class="bi bi-building"></i></span>
+            </div>
+            <strong>@ViewBag.TotalFlats</strong>
+            <a asp-controller="Flat" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card tone-success">
+            <div class="stat-top">
+                <span class="stat-label">Occupied Flats</span>
+                <span class="stat-icon"><i class="bi bi-house-check-fill"></i></span>
+            </div>
+            <strong>@ViewBag.OccupiedFlats</strong>
+            <a asp-controller="Flat" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card tone-info">
+            <div class="stat-top">
+                <span class="stat-label">Available Flats</span>
+                <span class="stat-icon"><i class="bi bi-house-door-fill"></i></span>
+            </div>
+            <strong>@ViewBag.AvailableFlats</strong>
+            <a asp-controller="Flat" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card tone-primary">
+            <div class="stat-top">
+                <span class="stat-label">Total Residents</span>
+                <span class="stat-icon"><i class="bi bi-people-fill"></i></span>
+            </div>
+            <strong>@ViewBag.TotalResidents</strong>
+            <a asp-controller="Resident" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="section-label">Operations</div>
+<div class="row g-3">
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card tone-info">
+            <div class="stat-top">
+                <span class="stat-label">Total Vehicles</span>
+                <span class="stat-icon"><i class="bi bi-car-front-fill"></i></span>
+            </div>
+            <strong>@ViewBag.TotalVehicles</strong>
+            <a asp-controller="Vehicle" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card tone-warning">
+            <div class="stat-top">
+                <span class="stat-label">Pending Complaints</span>
+                <span class="stat-icon"><i class="bi bi-tools"></i></span>
+            </div>
+            <strong>@ViewBag.PendingComplaints</strong>
+            <a asp-controller="Complaint" asp-action="Index">Resolve <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card tone-danger">
+            <div class="stat-top">
+                <span class="stat-label">Unpaid Bills</span>
+                <span class="stat-icon"><i class="bi bi-receipt"></i></span>
+            </div>
+            <strong>@ViewBag.UnpaidBills</strong>
+            <a asp-controller="Maintenance" asp-action="Index">Review <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card tone-success">
+            <div class="stat-top">
+                <span class="stat-label">Total Amenities</span>
+                <span class="stat-icon"><i class="bi bi-cup-hot-fill"></i></span>
+            </div>
+            <strong>@ViewBag.TotalAmenities</strong>
+            <a asp-controller="Amenity" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="section-label">Community</div>
+<div class="row g-3 mb-2">
+    <div class="col-md-4">
+        <div class="stat-card tone-primary">
+            <div class="stat-top">
+                <span class="stat-label">Upcoming Bookings</span>
+                <span class="stat-icon"><i class="bi bi-calendar2-check-fill"></i></span>
+            </div>
+            <strong>@ViewBag.UpcomingBookings</strong>
+            <a asp-controller="AmenityBooking" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card tone-info">
+            <div class="stat-top">
+                <span class="stat-label">Active Notices</span>
+                <span class="stat-icon"><i class="bi bi-megaphone-fill"></i></span>
+            </div>
+            <strong>@ViewBag.ActiveNotices</strong>
+            <a asp-controller="Notice" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card tone-success">
+            <div class="stat-top">
+                <span class="stat-label">Active Polls</span>
+                <span class="stat-icon"><i class="bi bi-bar-chart-fill"></i></span>
+            </div>
+            <strong>@ViewBag.ActivePolls</strong>
+            <a asp-controller="Poll" asp-action="Index">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="section-label">Quick Actions</div>
+<div class="panel-card">
+    <div class="quick-grid quick-grid-4">
+        <a asp-controller="Resident" asp-action="Create"><i class="bi bi-person-plus-fill"></i> Onboard Resident</a>
+        <a asp-controller="Notice" asp-action="Create"><i class="bi bi-megaphone-fill"></i> Broadcast Notice</a>
+        <a asp-controller="Complaint" asp-action="Index"><i class="bi bi-tools"></i> Assign Ticket</a>
+        <a asp-controller="AuditLog" asp-action="Index"><i class="bi bi-journal-text"></i> Audit Gate Logs</a>
+    </div>
+</div>

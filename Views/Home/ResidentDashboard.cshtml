@@ -1,0 +1,22 @@
+@using SmartSociety.Models
+@{ ViewData["Title"] = "Resident Dashboard"; var r=(ResidentProfile)ViewBag.Resident; }
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4"><div><span class="text-primary fw-semibold">RESIDENT PORTAL</span><h1 class="fw-bold mb-1">Welcome, @r.FullName</h1><p class="text-secondary mb-0">@r.Flat.BlockName - @r.Flat.FlatNumber</p></div><a asp-controller="Resident" asp-action="Edit" asp-route-id="@r.Id" class="btn btn-outline-primary">My Profile</a></div>
+    <div class="row g-3">
+        <div class="col-md-6 col-xl-3"><div class="stat-card tone-primary"><div class="stat-top"><span class="stat-label">Active Vehicles</span><span class="stat-icon"><i class="bi bi-car-front-fill"></i></span></div><strong>@ViewBag.VehicleCount</strong><a asp-controller="Vehicle" asp-action="Index">Manage <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-xl-3"><div class="stat-card tone-info"><div class="stat-top"><span class="stat-label">Upcoming Visitors</span><span class="stat-icon"><i class="bi bi-person-badge-fill"></i></span></div><strong>@ViewBag.VisitorCount</strong><a asp-controller="Visitor" asp-action="Index">View <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-xl-3"><div class="stat-card tone-warning"><div class="stat-top"><span class="stat-label">Open Complaints</span><span class="stat-icon"><i class="bi bi-tools"></i></span></div><strong>@ViewBag.ComplaintCount</strong><a asp-controller="Complaint" asp-action="Index">Track <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-xl-3"><div class="stat-card tone-danger"><div class="stat-top"><span class="stat-label">Pending Bills</span><span class="stat-icon"><i class="bi bi-receipt"></i></span></div><strong>@ViewBag.PendingBills</strong><a asp-controller="Maintenance" asp-action="Index">Bills <i class="bi bi-arrow-right"></i></a></div></div>
+    </div>
+    <div class="row g-4 mt-2">
+        <div class="col-lg-8"><div class="panel-card"><h4><i class="bi bi-lightning-charge-fill text-primary"></i> Quick Actions</h4><div class="quick-grid">
+            <a asp-controller="Visitor" asp-action="Create"><i class="bi bi-qr-code-scan"></i> Generate Visitor Pass</a>
+            <a asp-controller="Complaint" asp-action="Create"><i class="bi bi-exclamation-triangle-fill"></i> Report a Problem</a>
+            <a asp-controller="AmenityBooking" asp-action="Create"><i class="bi bi-calendar2-plus-fill"></i> Book an Amenity</a>
+            <a asp-controller="EmergencyContact" asp-action="Index"><i class="bi bi-telephone-fill"></i> Emergency Contacts</a>
+            <a asp-controller="FamilyMember" asp-action="Index"><i class="bi bi-people-fill"></i> Family Members</a>
+            <a asp-controller="Notice" asp-action="Index"><i class="bi bi-megaphone-fill"></i> Notice Board</a>
+        </div></div></div>
+        <div class="col-lg-4"><div class="panel-card"><h4><i class="bi bi-people-fill text-primary"></i> Community</h4><p class="text-secondary">Published notices: <b>@ViewBag.NoticeCount</b></p><a class="btn btn-primary w-100" asp-controller="Poll" asp-action="Index"><i class="bi bi-bar-chart-fill"></i> Open Polls</a></div></div>
+    </div>
+</div>

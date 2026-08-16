@@ -1,0 +1,481 @@
+@model SmartSociety.Models.Complaint
+
+@using SmartSociety.Models.Enums
+
+@{
+    ViewData["Title"] =
+        User.IsInRole("MaintenanceStaff")
+            ? "Update Complaint"
+            : "Edit Complaint";
+}
+
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <h2 class="fw-bold mb-1">
+
+                        @ViewData["Title"]
+
+                    </h2>
+
+                    <p class="text-muted mb-4">
+
+                        @if (User.IsInRole("MaintenanceStaff"))
+                        {
+                            <span>
+                                Update complaint status and work notes.
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                Manage complaint details.
+                            </span>
+                        }
+
+                    </p>
+
+
+                    <form asp-action="Edit"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               asp-for="Id" />
+
+
+                        <!-- VALIDATION -->
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3">
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- MAINTENANCE STAFF -->
+                        <!-- ================================================= -->
+                        @if (User.IsInRole("MaintenanceStaff"))
+                        {
+                            <!-- Complaint information -->
+
+                            <div class="alert alert-light border mb-4">
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <strong>
+                                            Resident
+                                        </strong>
+
+                                        <div class="mt-1">
+
+                                            @(Model.ResidentProfile?.FullName
+                                                ?? "Unknown")
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <strong>
+                                            Category
+                                        </strong>
+
+                                        <div class="mt-1">
+
+                                            @Model.Category
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <hr />
+
+
+                                <div>
+
+                                    <strong>
+                                        Complaint
+                                    </strong>
+
+                                    <p class="mb-0 mt-1">
+
+                                        @Model.Description
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SLA -->
+
+                            <div class="mb-4">
+
+                                <label class="form-label fw-bold">
+
+                                    SLA Target
+
+                                </label>
+
+
+                                @if (Model.SlaTargetDate.HasValue)
+                                {
+                                    var sla =
+                                        Model.SlaTargetDate.Value;
+
+                                    if (Model.Status != ComplaintStatus.Resolved &&
+                                        sla < DateTime.UtcNow)
+                                    {
+                                        <div class="alert alert-danger mb-0">
+
+                                            <i class="bi bi-exclamation-triangle"></i>
+
+                                            SLA Breached:
+                                            @sla.ToLocalTime().ToString("dd/MM/yyyy hh:mm tt")
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-info mb-0">
+
+                                            <i class="bi bi-clock"></i>
+
+                                            @sla.ToLocalTime().ToString("dd/MM/yyyy hh:mm tt")
+
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="alert alert-secondary mb-0">
+
+                                        SLA not assigned.
+
+                                    </div>
+                                }
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
+                            <div class="mb-4">
+
+                                <label asp-for="Status"
+                                       class="form-label fw-bold">
+
+                                    Complaint Status
+
+                                </label>
+
+
+                                <select asp-for="Status"
+                                        class="form-select">
+
+                                    <option value="@ComplaintStatus.Pending">
+                                        Pending
+                                    </option>
+
+                                    <option value="@ComplaintStatus.InProgress">
+                                        In Progress
+                                    </option>
+
+                                    <option value="@ComplaintStatus.Resolved">
+                                        Resolved
+                                    </option>
+
+                                </select>
+
+                                <span asp-validation-for="Status"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- WORK NOTES -->
+
+                            <div class="mb-4">
+
+                                <label asp-for="WorkNotes"
+                                       class="form-label fw-bold">
+
+                                    Work Notes
+
+                                </label>
+
+
+                                <textarea asp-for="WorkNotes"
+                                          class="form-control"
+                                          rows="6"
+                                          placeholder="Write work performed, issue found, repair details, etc.">
+                                </textarea>
+
+
+                                <span asp-validation-for="WorkNotes"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- RESOLVED DATE -->
+                            @if (Model.ResolvedAt.HasValue)
+                            {
+                                <div class="alert alert-success">
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    Resolved on:
+
+                                    @Model.ResolvedAt.Value.ToLocalTime().ToString("dd/MM/yyyy hh:mm tt")
+
+                                </div>
+                            }
+
+                        }
+
+
+                        <!-- ================================================= -->
+                        <!-- ADMIN -->
+                        <!-- ================================================= -->
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <!-- RESIDENT -->
+
+                            <div class="mb-3">
+
+                                <label asp-for="ResidentProfileId"
+                                       class="form-label">
+
+                                    Resident
+
+                                </label>
+
+                                <select asp-for="ResidentProfileId"
+                                        asp-items="ViewBag.Residents"
+                                        class="form-select">
+
+                                    <option value="">
+                                        -- Select Resident --
+                                    </option>
+
+                                </select>
+
+                                <span asp-validation-for="ResidentProfileId"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- CATEGORY -->
+
+                            <div class="mb-3">
+
+                                <label asp-for="Category"
+                                       class="form-label">
+
+                                    Category
+
+                                </label>
+
+                                <select asp-for="Category"
+                                        class="form-select"
+                                        asp-items="Html.GetEnumSelectList<ComplaintCategory>()">
+
+                                    <option value="">
+                                        -- Select Category --
+                                    </option>
+
+                                </select>
+
+                                <span asp-validation-for="Category"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <div class="mb-3">
+
+                                <label asp-for="Description"
+                                       class="form-label">
+
+                                    Description
+
+                                </label>
+
+                                <textarea asp-for="Description"
+                                          class="form-control"
+                                          rows="5">
+                                </textarea>
+
+                                <span asp-validation-for="Description"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- ASSIGNED STAFF -->
+
+                            <div class="mb-3">
+
+                                <label asp-for="AssignedStaffId"
+                                       class="form-label">
+
+                                    Assign Maintenance Staff
+
+                                </label>
+
+                                <select asp-for="AssignedStaffId"
+                                        asp-items="ViewBag.MaintenanceStaff"
+                                        class="form-select">
+
+                                    <option value="">
+                                        -- Unassigned --
+                                    </option>
+
+                                </select>
+
+                                <span asp-validation-for="AssignedStaffId"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
+                            <div class="mb-3">
+
+                                <label asp-for="Status"
+                                       class="form-label">
+
+                                    Status
+
+                                </label>
+
+                                <select asp-for="Status"
+                                        class="form-select"
+                                        asp-items="Html.GetEnumSelectList<ComplaintStatus>()">
+                                </select>
+
+                                <span asp-validation-for="Status"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- SLA -->
+
+                            <div class="mb-3">
+
+                                <label asp-for="SlaTargetDate"
+                                       class="form-label">
+
+                                    SLA Target Date
+
+                                </label>
+
+                                <input asp-for="SlaTargetDate"
+                                       type="datetime-local"
+                                       class="form-control" />
+
+                                <span asp-validation-for="SlaTargetDate"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- WORK NOTES -->
+
+                            <div class="mb-3">
+
+                                <label asp-for="WorkNotes"
+                                       class="form-label">
+
+                                    Work Notes
+
+                                </label>
+
+                                <textarea asp-for="WorkNotes"
+                                          class="form-control"
+                                          rows="5">
+                                </textarea>
+
+                            </div>
+
+                        }
+
+
+                        <!-- BUTTONS -->
+
+                        <div class="d-flex gap-2 mt-4">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="bi bi-check-lg"></i>
+
+                                Save Changes
+
+                            </button>
+
+
+                            <a asp-action="Details"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-secondary">
+
+                                Cancel
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial"
+        );
+    }
+
+}

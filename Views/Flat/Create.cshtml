@@ -1,0 +1,110 @@
+﻿@model SmartSociety.Models.Flat
+
+@{
+    ViewData["Title"] = "Create Flat";
+}
+
+<div class="container mt-4">
+
+    <h2>Create Flat</h2>
+
+    <hr />
+
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3">
+        </div>
+
+
+        <!-- Block Name -->
+
+        <div class="mb-3">
+
+            <label asp-for="BlockName"
+                   class="form-label">
+            </label>
+
+            <input asp-for="BlockName"
+                   class="form-control"
+                   placeholder="Enter block name" />
+
+            <span asp-validation-for="BlockName"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Flat Number -->
+
+        <div class="mb-3">
+
+            <label asp-for="FlatNumber"
+                   class="form-label">
+            </label>
+
+            <input asp-for="FlatNumber"
+                   class="form-control"
+                   placeholder="Enter flat number" />
+
+            <span asp-validation-for="FlatNumber"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Occupancy Type -->
+
+        <div class="mb-3">
+
+            <label asp-for="OccupancyType"
+                   class="form-label">
+            </label>
+
+            <select asp-for="OccupancyType"
+                    class="form-select"
+                    asp-items="Html.GetEnumSelectList<SmartSociety.Models.Enums.OccupancyType>()">
+
+                <option value="">
+                    -- Select Occupancy Type --
+                </option>
+
+            </select>
+
+            <span asp-validation-for="OccupancyType"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="mt-4">
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Save Flat
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

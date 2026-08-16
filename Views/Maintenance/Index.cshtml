@@ -1,0 +1,45 @@
+@model IEnumerable<SmartSociety.Models.MaintenanceBill>
+
+@{
+    ViewData["Title"] = "Maintenance Bills";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Maintenance Bills</h2>
+        @if (User.IsInRole("Admin")) { <a asp-action="Create" class="btn btn-primary">Create Bill</a> }
+    </div>
+
+    @if (TempData["Success"] != null) { <div class="alert alert-success">@TempData["Success"]</div> }
+    @if (TempData["Error"] != null) { <div class="alert alert-danger">@TempData["Error"]</div> }
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Flat</th>
+                <th>Billing Month</th>
+                <th>Amount Due</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in Model)
+            {
+                <tr>
+                    <td>@b.Flat.BlockName - @b.Flat.FlatNumber</td>
+                    <td>@b.BillingMonth.ToString("yyyy-MM")</td>
+                    <td>@b.AmountDue</td>
+                    <td>@b.DueDate.ToShortDateString()</td>
+                    <td>@b.PaymentStatus</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@b.Id" class="btn btn-sm btn-info">Details</a>
+                        @if (User.IsInRole("Admin")) { <a asp-action="Delete" asp-route-id="@b.Id" class="btn btn-sm btn-danger">Delete</a> }
+                        @if (User.IsInRole("Resident") && b.PaymentStatus != SmartSociety.Models.Enums.PaymentStatus.Paid) { <a asp-controller="Payment" asp-action="Create" asp-route-billId="@b.Id" class="btn btn-sm btn-success">Pay</a> }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,40 @@
+@model SmartSociety.Models.Visitor
+
+@{
+    ViewData["Title"] = "Visitor Details";
+}
+
+<div class="container mt-4">
+
+    <h2>Visitor Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.VisitorName</dd>
+
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">@Model.Phone</dd>
+
+        <dt class="col-sm-3">Vehicle</dt>
+        <dd class="col-sm-9">@Model.VehicleNumber</dd>
+
+        <dt class="col-sm-3">Gate Pass</dt>
+        <dd class="col-sm-9">@Model.GatePassCode</dd>
+
+        <dt class="col-sm-3">Valid From</dt>
+        <dd class="col-sm-9">@Model.ValidFrom</dd>
+
+        <dt class="col-sm-3">Valid Until</dt>
+        <dd class="col-sm-9">@Model.ValidUntil</dd>
+
+        <dt class="col-sm-3">Flat</dt>
+        <dd class="col-sm-9">@Model.Flat.BlockName - @Model.Flat.FlatNumber</dd>
+
+        <dt class="col-sm-3">Approved</dt>
+        <dd class="col-sm-9">@(Model.IsApproved ? "Yes" : "No")</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+
+</div>

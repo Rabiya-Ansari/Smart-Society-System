@@ -1,0 +1,123 @@
+﻿@model SmartSociety.Models.MaintenanceBill
+
+@{
+    ViewData["Title"] = "Delete Maintenance Bill";
+}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0">Delete Maintenance Bill</h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-warning">
+                <strong>Are you sure?</strong>
+                You are about to delete this maintenance bill.
+            </div>
+
+            <dl class="row">
+
+                <!-- Flat -->
+                <dt class="col-sm-4">
+                    Flat
+                </dt>
+
+                <dd class="col-sm-8">
+                    @if (Model.Flat != null)
+                    {
+                        @Model.Flat.BlockName
+                        <span> - </span>
+                        @Model.Flat.FlatNumber
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            Unknown Flat
+                        </span>
+                    }
+                </dd>
+
+
+                <!-- Billing Month -->
+                <dt class="col-sm-4">
+                    Billing Month
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.BillingMonth.ToString("MMMM yyyy")
+                </dd>
+
+
+                <!-- Amount -->
+                <dt class="col-sm-4">
+                    Amount Due
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.AmountDue.ToString("N2")
+                </dd>
+
+
+                <!-- Due Date -->
+                <dt class="col-sm-4">
+                    Due Date
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.DueDate.ToString("dd-MM-yyyy")
+                </dd>
+
+
+                <!-- Penalty -->
+                <dt class="col-sm-4">
+                    Penalty Amount
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.PenaltyAmount.ToString("N2")
+                </dd>
+
+
+                <!-- Payment Status -->
+                <dt class="col-sm-4">
+                    Payment Status
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.PaymentStatus
+                </dd>
+
+            </dl>
+
+
+            <hr />
+
+            <form asp-action="Delete"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       asp-for="Id" />
+
+                <button type="submit"
+                        class="btn btn-danger">
+                    Yes, Delete
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

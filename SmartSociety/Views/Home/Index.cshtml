@@ -1,0 +1,214 @@
+@{
+    ViewData["Title"] = "SmartSociety";
+}
+
+<nav class="top-guest-nav">
+    <a class="brand" asp-controller="Home" asp-action="Index">
+        <span class="brand-mark">S</span> SmartSociety
+    </a>
+    <div class="d-flex align-items-center gap-2">
+        <button type="button" class="theme-toggle d-none d-sm-grid" data-theme-toggle aria-label="Toggle dark mode">
+            <i class="bi bi-moon-stars-fill" data-theme-icon></i>
+        </button>
+        <a asp-controller="Home" asp-action="Sitemap" class="btn btn-outline-secondary btn-sm d-none d-sm-inline-flex align-items-center gap-1"><i class="bi bi-diagram-3-fill"></i> Sitemap</a>
+        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-primary btn-sm">Login</a>
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-sm">Get Started</a>
+    </div>
+</nav>
+
+<div class="landing-page">
+
+    <!-- ============================== HERO ============================== -->
+    <div class="hero-card p-5 shadow-sm rounded-4 reveal in">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <span class="badge bg-primary-subtle text-primary mb-3"><i class="bi bi-stars"></i> SMART COMMUNITY MANAGEMENT</span>
+                <h1 class="display-4 fw-bold">Smart Living. <span style="background:var(--primary-grad);-webkit-background-clip:text;background-clip:text;color:transparent;">Smarter Communities.</span></h1>
+                <p class="lead text-secondary" style="max-width:600px;">
+                    Manage residents, vehicles, visitors, gate security, amenities, maintenance and community
+                    activities from one intelligent, secure platform — built for modern housing societies.
+                </p>
+                <div class="d-flex gap-2 flex-wrap mt-4">
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-lg"><i class="bi bi-box-arrow-in-right"></i> Login to Dashboard</a>
+                    <a asp-controller="Home" asp-action="Sitemap" class="btn btn-outline-secondary btn-lg"><i class="bi bi-diagram-3-fill"></i> View Sitemap</a>
+                </div>
+
+                <div class="d-flex flex-wrap gap-4 mt-5">
+                    <div>
+                        <strong style="font-size:28px;display:block;" data-counter="10">0</strong>
+                        <span class="text-secondary" style="font-size:13px;">Management Modules</span>
+                    </div>
+                    <div>
+                        <strong style="font-size:28px;display:block;" data-counter="4">0</strong>
+                        <span class="text-secondary" style="font-size:13px;">Dedicated Role Portals</span>
+                    </div>
+                    <div>
+                        <strong style="font-size:28px;display:block;" data-counter="24">0</strong>
+                        <span class="text-secondary" style="font-size:13px;">/7 Gate Activity Logging</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="position-relative" style="height:360px;">
+                    <!-- Floating stat card 1 -->
+                    <div class="panel-card float-el" style="position:absolute;top:0;right:10%;width:230px;padding:16px;animation-delay:.2s;">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="stat-icon" style="width:32px;height:32px;font-size:14px;background:var(--success-soft);color:var(--success);"><i class="bi bi-shield-fill-check"></i></span>
+                            <strong style="font-size:14px;">Gate Verified</strong>
+                        </div>
+                        <p class="text-secondary mb-0" style="font-size:12.5px;">Visitor pass scanned &amp; approved in real time.</p>
+                    </div>
+
+                    <!-- Floating stat card 2 -->
+                    <div class="panel-card float-el" style="position:absolute;bottom:30px;left:0;width:220px;padding:16px;animation-delay:.9s;">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="stat-icon" style="width:32px;height:32px;font-size:14px;background:var(--primary-soft);color:var(--primary);"><i class="bi bi-receipt"></i></span>
+                            <strong style="font-size:14px;">Bill Settled</strong>
+                        </div>
+                        <p class="text-secondary mb-0" style="font-size:12.5px;">Maintenance payment received &amp; recorded.</p>
+                    </div>
+
+                    <!-- Skyline illustration (inline SVG — no external image dependency) -->
+                    <svg viewBox="0 0 420 340" style="position:absolute;inset:0;width:100%;height:100%;z-index:-1;" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="bldgGrad1" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#6366f1" stop-opacity=".22" />
+                                <stop offset="1" stop-color="#8b5cf6" stop-opacity=".05" />
+                            </linearGradient>
+                            <linearGradient id="bldgGrad2" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#a855f7" stop-opacity=".18" />
+                                <stop offset="1" stop-color="#6366f1" stop-opacity=".04" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="30" y="120" width="70" height="200" rx="10" fill="url(#bldgGrad1)" />
+                        <rect x="115" y="70" width="90" height="250" rx="10" fill="url(#bldgGrad2)" />
+                        <rect x="220" y="150" width="60" height="170" rx="10" fill="url(#bldgGrad1)" />
+                        <rect x="295" y="40" width="95" height="280" rx="10" fill="url(#bldgGrad2)" />
+                        <g fill="#8b5cf6" opacity=".35">
+                            <circle cx="55" cy="150" r="3" /><circle cx="75" cy="150" r="3" />
+                            <circle cx="55" cy="175" r="3" /><circle cx="75" cy="175" r="3" />
+                            <circle cx="140" cy="100" r="3" /><circle cx="165" cy="100" r="3" /><circle cx="190" cy="100" r="3" />
+                            <circle cx="140" cy="130" r="3" /><circle cx="165" cy="130" r="3" /><circle cx="190" cy="130" r="3" />
+                            <circle cx="320" cy="70" r="3" /><circle cx="345" cy="70" r="3" /><circle cx="370" cy="70" r="3" />
+                            <circle cx="320" cy="100" r="3" /><circle cx="345" cy="100" r="3" /><circle cx="370" cy="100" r="3" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================== FEATURES ============================== -->
+    <div class="section-label mt-5">Everything your community needs</div>
+    <div class="row g-4 stagger">
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-people-fill"></i></div>
+                <h5>Resident Management</h5>
+                <p>Digital resident &amp; flat records, family members and emergency contacts in one place.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-car-front-fill"></i></div>
+                <h5>Vehicle Management</h5>
+                <p>Registered vehicle records tied to flats, ready for instant gate verification.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-person-badge-fill"></i></div>
+                <h5>Visitor Management</h5>
+                <p>Pre-approve guest passes and track validity windows for every visitor.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-shield-fill-check"></i></div>
+                <h5>Gate Security</h5>
+                <p>Fast pass verification with real-time entry and exit tracking at every checkpoint.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-cup-hot-fill"></i></div>
+                <h5>Amenities</h5>
+                <p>Clubhouse, courts and shared spaces — bookable in a few taps.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-tools"></i></div>
+                <h5>Maintenance</h5>
+                <p>Assigned complaint tickets and work tracking to keep repairs on schedule.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-megaphone-fill"></i></div>
+                <h5>Notices &amp; Polls</h5>
+                <p>Community announcements and resident polls, published instantly.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-journal-text"></i></div>
+                <h5>Audit Logs</h5>
+                <p>Full activity trail across the platform for transparency and accountability.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================== ROLES ============================== -->
+    <div class="section-label mt-5">Built for every role in your community</div>
+    <div class="row g-4 stagger">
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-people-fill"></i></div>
+                <h5>Residents</h5>
+                <p>Vehicles, visitors, complaints, bills, bookings and community updates — all self-service.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-shield-fill-check"></i></div>
+                <h5>Security</h5>
+                <p>Fast gate-pass verification with real-time entry and exit tracking at every checkpoint.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-tools"></i></div>
+                <h5>Maintenance</h5>
+                <p>Assigned complaint tickets, SLA tracking and work notes to keep repairs on schedule.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="bi bi-speedometer2"></i></div>
+                <h5>Administration</h5>
+                <p>Resident onboarding, billing, amenities, notices and audit logs from one control panel.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================== CTA BANNER ============================== -->
+    <div class="hero-card p-5 mt-5 rounded-4 reveal text-center">
+        <h3 class="fw-bold mb-2">Ready to modernize your society?</h3>
+        <p class="text-secondary mb-4">Create your account and start managing your community today.</p>
+        <div class="d-flex gap-2 flex-wrap justify-content-center">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg"><i class="bi bi-person-plus-fill"></i> Get Started Free</a>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-primary btn-lg"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+        </div>
+    </div>
+
+    <!-- ============================== FOOTER ============================== -->
+    <footer class="d-flex flex-wrap align-items-center justify-content-between gap-3 mt-5 pt-4" style="border-top:1px solid var(--border);">
+        <a class="brand" asp-controller="Home" asp-action="Index" style="color:var(--text);">
+            <span class="brand-mark" style="width:30px;height:30px;font-size:13px;">S</span> SmartSociety
+        </a>
+        <span class="text-secondary" style="font-size:13px;">&copy; @DateTime.Now.Year SmartSociety. All rights reserved.</span>
+        <a asp-controller="Home" asp-action="Sitemap" class="text-secondary text-decoration-none" style="font-size:13px;"><i class="bi bi-diagram-3-fill"></i> Sitemap</a>
+    </footer>
+</div>

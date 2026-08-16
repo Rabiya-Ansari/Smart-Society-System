@@ -1,0 +1,148 @@
+@model SmartSociety.Models.FamilyMember
+
+@{
+    ViewData["Title"] = "Edit Family Member";
+}
+
+<div class="container mt-4">
+
+    <h1>Edit Family Member</h1>
+
+    <hr />
+
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="All"
+             class="text-danger mb-3">
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- ADMIN - SELECT RESIDENT        -->
+        <!-- ============================= -->
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="form-group mb-3">
+
+                <label asp-for="ResidentProfileId"
+                       class="control-label">
+                    Resident
+                </label>
+
+                <select asp-for="ResidentProfileId"
+                        class="form-control"
+                        asp-items="ViewBag.Residents">
+                    <option value="">-- Select Resident --</option>
+                </select>
+
+                <span asp-validation-for="ResidentProfileId"
+                      class="text-danger">
+                </span>
+
+            </div>
+        }
+        else
+        {
+            <!-- Resident user ke liye ID hidden rahegi -->
+
+            <input type="hidden"
+                   asp-for="ResidentProfileId" />
+        }
+
+
+        <!-- ============================= -->
+        <!-- NAME                           -->
+        <!-- ============================= -->
+
+        <div class="form-group mb-3">
+
+            <label asp-for="Name"
+                   class="control-label">
+                Name
+            </label>
+
+            <input asp-for="Name"
+                   class="form-control"
+                   placeholder="Enter family member name" />
+
+            <span asp-validation-for="Name"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- RELATIONSHIP                   -->
+        <!-- ============================= -->
+
+        <div class="form-group mb-3">
+
+            <label asp-for="Relationship"
+                   class="control-label">
+                Relationship
+            </label>
+
+            <input asp-for="Relationship"
+                   class="form-control"
+                   placeholder="e.g. Son, Daughter, Wife" />
+
+            <span asp-validation-for="Relationship"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- DATE OF BIRTH                  -->
+        <!-- ============================= -->
+
+        <div class="form-group mb-3">
+
+            <label asp-for="DateOfBirth"
+                   class="control-label">
+                Date of Birth
+            </label>
+
+            <input asp-for="DateOfBirth"
+                   class="form-control"
+                   type="date" />
+
+            <span asp-validation-for="DateOfBirth"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- BUTTONS                        -->
+        <!-- ============================= -->
+
+        <div class="mt-4">
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Update
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back to List
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,60 @@
+@model SmartSociety.Models.Poll
+
+@{
+    ViewData["Title"] = "Poll Details";
+}
+
+<div class="container mt-4">
+    <h2>Poll Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Question</dt>
+        <dd class="col-sm-9">@Model.Question</dd>
+
+        <dt class="col-sm-3">Start Date</dt>
+        <dd class="col-sm-9">@Model.StartDate</dd>
+
+        <dt class="col-sm-3">End Date</dt>
+        <dd class="col-sm-9">@Model.EndDate</dd>
+
+        <dt class="col-sm-3">Active</dt>
+        <dd class="col-sm-9">@(Model.IsActive ? "Yes" : "No")</dd>
+    </dl>
+
+    <h4>Options</h4>
+    <table class="table table-bordered">
+        <thead><tr><th>Option</th><th>Votes</th></tr></thead>
+        <tbody>
+            @foreach (var o in Model.PollOptions)
+            {
+                <tr>
+                    <td>@o.OptionText</td>
+                    <td>@Model.PollVotes.Count(v => v.PollOptionId == o.Id)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (User.IsInRole("Resident") && Model.IsActive && Model.StartDate <= DateTime.UtcNow && Model.EndDate >= DateTime.UtcNow)
+    {
+        <div class="card p-3 mb-3">
+            <h5>Vote</h5>
+            <form asp-controller="PollVote" asp-action="Vote" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="pollId" value="@Model.Id" />
+
+                @foreach (var opt in Model.PollOptions)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="optionId" id="opt_@opt.Id" value="@opt.Id" />
+                        <label class="form-check-label" for="opt_@opt.Id">@opt.OptionText</label>
+                    </div>
+                }
+
+                <button type="submit" class="btn btn-primary mt-2">Submit Vote</button>
+            </form>
+        </div>
+    }
+
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+</div>

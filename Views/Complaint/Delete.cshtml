@@ -1,0 +1,34 @@
+@model SmartSociety.Models.Complaint
+
+@{
+    ViewData["Title"] = "Delete Complaint";
+}
+
+<div class="container mt-4">
+
+    <h2>Delete Complaint</h2>
+
+    <div class="alert alert-danger">
+        <strong>Are you sure?</strong> This action cannot be undone.
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Resident</dt>
+        <dd class="col-sm-9">@Model.ResidentProfile.FullName</dd>
+
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9">@Model.Category</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+
+</div>

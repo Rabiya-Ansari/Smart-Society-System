@@ -1,0 +1,98 @@
+@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-shell">
+    <div class="auth-visual">
+        <div class="auth-visual-top">
+            <a class="brand" href="/" style="color:#fff;">
+                <span class="brand-mark">S</span>
+                <span>SmartSociety<span class="brand-sub" style="color:#a5aede;">Community OS</span></span>
+            </a>
+        </div>
+        <div class="auth-visual-mid">
+            <span class="badge bg-primary-subtle text-primary mb-3" style="background:rgba(139,92,246,.18)!important;color:#c4b5fd!important;">WELCOME BACK</span>
+            <h2>Manage your entire community from one secure dashboard.</h2>
+            <p>Sign in to access gate passes, maintenance bills, complaints, amenity bookings and society notices — all in one place.</p>
+            <ul class="auth-feature-list">
+                <li><span class="ico"><i class="bi bi-shield-lock-fill"></i></span> Role-based secure access</li>
+                <li><span class="ico"><i class="bi bi-qr-code-scan"></i></span> Instant visitor gate passes</li>
+                <li><span class="ico"><i class="bi bi-receipt"></i></span> Live maintenance billing</li>
+                <li><span class="ico"><i class="bi bi-megaphone-fill"></i></span> Real-time community notices</li>
+            </ul>
+        </div>
+        <div class="auth-visual-bottom">&copy; @DateTime.Now.Year SmartSociety &middot; Full-Stack Society Management Platform</div>
+    </div>
+
+    <div class="auth-form-side">
+        <div class="auth-form-card">
+            <span class="brand-mark d-md-none">S</span>
+            <h1>Sign in to your account</h1>
+            <p class="subtitle">Enter your credentials to access your dashboard.</p>
+
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-2" role="alert"></div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.Email" class="form-label">Email address</label>
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+
+                <div class="form-floating mb-2 password-wrap">
+                    <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" id="loginPasswordInput" />
+                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <button type="button" class="password-toggle" aria-label="Show password"><i class="bi bi-eye"></i></button>
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+
+                <div class="auth-links-row mt-2">
+                    <label class="d-flex align-items-center gap-2" style="font-weight:500;color:var(--muted);cursor:pointer;">
+                        <input class="form-check-input m-0" asp-for="Input.RememberMe" style="cursor:pointer;" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                    <a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a>
+                </div>
+
+                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-box-arrow-in-right"></i> Log in
+                </button>
+
+               <p class="auth-foot-link">
+    New to SmartSociety?
+    <a asp-page="/Account/Register"
+       asp-route-returnUrl="@Model.ReturnUrl"
+       style="position: relative; z-index: 9999; pointer-events: auto; cursor: pointer;">
+        Create an account
+    </a>
+</p>
+            </form>
+
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                {
+                    <div class="auth-divider">or continue with</div>
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div class="d-flex gap-2 flex-wrap justify-content-center">
+                            @foreach (var provider in Model.ExternalLogins!)
+                            {
+                                <button type="submit" class="btn btn-outline-secondary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                            }
+                        </div>
+                    </form>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+{
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+    </script>
+}

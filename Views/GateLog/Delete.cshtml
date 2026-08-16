@@ -1,0 +1,34 @@
+@model SmartSociety.Models.GateLog
+
+@{
+    ViewData["Title"] = "Delete Gate Log";
+}
+
+<div class="container mt-4">
+
+    <h2>Delete Gate Log</h2>
+
+    <div class="alert alert-danger">
+        <strong>Are you sure?</strong> This action cannot be undone.
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Visitor</dt>
+        <dd class="col-sm-9">@Model.Visitor.VisitorName</dd>
+
+        <dt class="col-sm-3">Entry Time</dt>
+        <dd class="col-sm-9">@Model.EntryTime</dd>
+
+        <dt class="col-sm-3">Exit Time</dt>
+        <dd class="col-sm-9">@(Model.ExitTime?.ToString() ?? "-")</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+
+</div>

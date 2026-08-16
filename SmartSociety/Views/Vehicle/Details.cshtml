@@ -1,0 +1,40 @@
+@model SmartSociety.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Vehicle Details";
+}
+
+<h1>Vehicle Details</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Registration Number</dt>
+        <dd class="col-sm-10">@Model.RegistrationNumber</dd>
+
+        <dt class="col-sm-2">Type</dt>
+        <dd class="col-sm-10">@Model.VehicleType</dd>
+
+        <dt class="col-sm-2">Make</dt>
+        <dd class="col-sm-10">@Model.Make</dd>
+
+        <dt class="col-sm-2">Model</dt>
+        <dd class="col-sm-10">@Model.Model</dd>
+
+        <dt class="col-sm-2">Color</dt>
+        <dd class="col-sm-10">@Model.Color</dd>
+
+        <dt class="col-sm-2">Resident</dt>
+        <dd class="col-sm-10">@Model.ResidentProfile?.FullName</dd>
+
+        <dt class="col-sm-2">Flat</dt>
+        <dd class="col-sm-10">@Model.ResidentProfile?.Flat?.BlockName - @Model.ResidentProfile?.Flat?.FlatNumber</dd>
+
+        <dt class="col-sm-2">Active</dt>
+        <dd class="col-sm-10">@(Model.IsActive ? "Yes" : "No")</dd>
+    </dl>
+</div>
+
+<p>
+    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-link" asp-action="Index">Back to List</a>
+</p>

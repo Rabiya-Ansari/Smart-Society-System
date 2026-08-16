@@ -1,0 +1,142 @@
+@model SmartSociety.Models.EmergencyContact
+
+@{
+    ViewData["Title"] = "Edit Emergency Contact";
+}
+
+<div class="container mt-4">
+
+    <h1>Edit Emergency Contact</h1>
+
+    <hr />
+
+    <form asp-action="Edit" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" asp-for="Id" />
+
+        <div asp-validation-summary="All"
+             class="text-danger mb-3">
+        </div>
+
+
+        <!-- RESIDENT -->
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="form-group mb-3">
+
+                <label asp-for="ResidentProfileId"
+                       class="control-label">
+                    Resident
+                </label>
+
+                <select asp-for="ResidentProfileId"
+                        class="form-control"
+                        asp-items="ViewBag.Residents">
+
+                    <option value="">
+                        -- Select Resident --
+                    </option>
+
+                </select>
+
+                <span asp-validation-for="ResidentProfileId"
+                      class="text-danger">
+                </span>
+
+            </div>
+        }
+        else
+        {
+            <input type="hidden"
+                   asp-for="ResidentProfileId" />
+        }
+
+
+        <!-- NAME -->
+
+        <div class="form-group mb-3">
+
+            <label asp-for="Name"
+                   class="control-label">
+                Name
+            </label>
+
+            <input asp-for="Name"
+                   class="form-control"
+                   placeholder="Enter emergency contact name" />
+
+            <span asp-validation-for="Name"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- RELATIONSHIP -->
+
+        <div class="form-group mb-3">
+
+            <label asp-for="Relationship"
+                   class="control-label">
+                Relationship
+            </label>
+
+            <input asp-for="Relationship"
+                   class="form-control"
+                   placeholder="e.g. Father, Mother, Brother" />
+
+            <span asp-validation-for="Relationship"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-group mb-3">
+
+            <label asp-for="PhoneNumber"
+                   class="control-label">
+                Phone Number
+            </label>
+
+            <input asp-for="PhoneNumber"
+                   class="form-control"
+                   placeholder="03001234567" />
+
+            <span asp-validation-for="PhoneNumber"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="mt-4">
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Save Changes
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back to List
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

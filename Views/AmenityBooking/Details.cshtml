@@ -1,0 +1,31 @@
+@model SmartSociety.Models.AmenityBooking
+
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<div class="container mt-4">
+    <h2>Booking Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Amenity</dt>
+        <dd class="col-sm-9">@Model.Amenity.Name</dd>
+
+        <dt class="col-sm-3">Resident</dt>
+        <dd class="col-sm-9">@Model.ResidentProfile.FullName</dd>
+
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">@Model.BookingDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">Time</dt>
+        <dd class="col-sm-9">@Model.StartTime - @Model.EndTime</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Remarks</dt>
+        <dd class="col-sm-9">@Model.Remarks</dd>
+    </dl>
+
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+</div>

@@ -1,0 +1,37 @@
+@model SmartSociety.Models.Complaint
+
+@{
+    ViewData["Title"] = "Complaint Details";
+}
+
+<div class="container mt-4">
+
+    <h2>Complaint Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Resident</dt>
+        <dd class="col-sm-9">@Model.ResidentProfile.FullName</dd>
+
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9">@Model.Category</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Assigned Staff</dt>
+        <dd class="col-sm-9">@(Model.AssignedStaff?.Email ?? "-")</dd>
+
+        <dt class="col-sm-3">Created At</dt>
+        <dd class="col-sm-9">@Model.CreatedAt</dd>
+
+        <dt class="col-sm-3">Resolved At</dt>
+        <dd class="col-sm-9">@(Model.ResolvedAt?.ToString() ?? "-")</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+
+</div>

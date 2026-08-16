@@ -1,0 +1,398 @@
+@model SmartSociety.Models.Complaint
+
+@using SmartSociety.Models.Enums
+
+@{
+    ViewData["Title"] = "Complaint Details";
+}
+
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Complaint Details
+            </h2>
+
+            <p class="text-muted mb-0">
+                Complaint #@Model.Id
+            </p>
+
+        </div>
+
+
+        @if (User.IsInRole("Admin") ||
+             User.IsInRole("MaintenanceStaff"))
+        {
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-warning">
+
+                <i class="bi bi-pencil"></i>
+
+                @if (User.IsInRole("MaintenanceStaff"))
+                {
+                    <span>Update Complaint</span>
+                }
+                else
+                {
+                    <span>Edit Complaint</span>
+                }
+
+            </a>
+        }
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- ================================================= -->
+        <!-- COMPLAINT INFORMATION -->
+        <!-- ================================================= -->
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-4">
+                        Complaint Information
+                    </h5>
+
+
+                    <!-- RESIDENT -->
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 text-muted">
+                            Resident
+                        </div>
+
+                        <div class="col-md-8 fw-semibold">
+
+                            @(Model.ResidentProfile?.FullName
+                                ?? "Unknown Resident")
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 text-muted">
+                            Category
+                        </div>
+
+                        <div class="col-md-8">
+
+                            @Model.Category
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 text-muted">
+                            Description
+                        </div>
+
+                        <div class="col-md-8">
+
+                            @Model.Description
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 text-muted">
+                            Status
+                        </div>
+
+                        <div class="col-md-8">
+
+                            @if (Model.Status == ComplaintStatus.Pending)
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    Pending
+                                </span>
+                            }
+                            else if (Model.Status == ComplaintStatus.InProgress)
+                            {
+                                <span class="badge bg-info">
+                                    In Progress
+                                </span>
+                            }
+                            else if (Model.Status == ComplaintStatus.Resolved)
+                            {
+                                <span class="badge bg-success">
+                                    Resolved
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    @Model.Status
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CREATED -->
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 text-muted">
+                            Created
+                        </div>
+
+                        <div class="col-md-8">
+
+                            @Model.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy hh:mm tt")
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RESOLVED -->
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 text-muted">
+                            Resolved
+                        </div>
+
+                        <div class="col-md-8">
+
+                            @if (Model.ResolvedAt.HasValue)
+                            {
+                                <span class="text-success fw-semibold">
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    @Model.ResolvedAt.Value.ToLocalTime().ToString("dd/MM/yyyy hh:mm tt")
+
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">
+                                    Not resolved yet
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WORK NOTES -->
+
+                    <div class="mt-4">
+
+                        <h6 class="fw-bold">
+                            Work Notes
+                        </h6>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.WorkNotes))
+                        {
+                            <div class="p-3 bg-light rounded">
+
+                                @Model.WorkNotes
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-muted">
+
+                                No work notes added yet.
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- STAFF / SLA -->
+        <!-- ================================================= -->
+
+        <div class="col-lg-4">
+
+            <!-- ASSIGNED STAFF -->
+
+            <div class="card shadow-sm border-0 mb-4">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-3">
+
+                        <i class="bi bi-person-workspace"></i>
+
+                        Assigned Staff
+
+                    </h5>
+
+
+                    @if (Model.AssignedStaff != null)
+                    {
+                        <div>
+
+                            <div class="fw-semibold">
+
+                                @Model.AssignedStaff.Email
+
+                            </div>
+
+                            <small class="text-muted">
+
+                                Maintenance Staff
+
+                            </small>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            Unassigned
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- SLA -->
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-3">
+
+                        <i class="bi bi-clock-history"></i>
+
+                        SLA
+
+                    </h5>
+
+
+                    @if (Model.SlaTargetDate.HasValue)
+                    {
+                        var sla =
+                            Model.SlaTargetDate.Value;
+
+
+                        <div class="mb-3">
+
+                            <small class="text-muted">
+                                Target Date
+                            </small>
+
+                            <div class="fw-semibold">
+
+                                @sla.ToLocalTime().ToString("dd/MM/yyyy hh:mm tt")
+
+                            </div>
+
+                        </div>
+
+
+                        @if (Model.Status != ComplaintStatus.Resolved &&
+                             sla < DateTime.UtcNow)
+                        {
+                            <div class="alert alert-danger mb-0">
+
+                                <i class="bi bi-exclamation-triangle"></i>
+
+                                <strong>
+                                    SLA Breached
+                                </strong>
+
+                            </div>
+                        }
+                        else if (Model.Status == ComplaintStatus.Resolved)
+                        {
+                            <div class="alert alert-success mb-0">
+
+                                <i class="bi bi-check-circle"></i>
+
+                                SLA completed.
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info mb-0">
+
+                                <i class="bi bi-clock"></i>
+
+                                SLA is active.
+
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <div class="text-muted">
+
+                            SLA target not set.
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <div class="mt-4">
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Back to Complaints
+
+        </a>
+
+    </div>
+
+</div>

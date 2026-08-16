@@ -1,0 +1,166 @@
+@model SmartSociety.Models.MaintenanceBill
+
+@{
+    ViewData["Title"] = "Create Maintenance Bill";
+}
+
+<div class="container mt-4">
+
+    <h1>Create Maintenance Bill</h1>
+
+    <hr />
+
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <!-- Validation Summary -->
+        <div asp-validation-summary="All"
+             class="text-danger mb-3">
+        </div>
+
+
+        <!-- Flat -->
+        <div class="form-group mb-3">
+
+            <label asp-for="FlatId"
+                   class="control-label">
+            </label>
+
+            <select asp-for="FlatId"
+                    class="form-control"
+                    asp-items="ViewBag.Flats">
+
+                <option value="">
+                    -- Select Flat --
+                </option>
+
+            </select>
+
+            <span asp-validation-for="FlatId"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Billing Month -->
+        <div class="form-group mb-3">
+
+            <label asp-for="BillingMonth"
+                   class="control-label">
+            </label>
+
+            <input asp-for="BillingMonth"
+                   class="form-control"
+                   type="month" />
+
+            <span asp-validation-for="BillingMonth"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Amount Due -->
+        <div class="form-group mb-3">
+
+            <label asp-for="AmountDue"
+                   class="control-label">
+            </label>
+
+            <input asp-for="AmountDue"
+                   class="form-control"
+                   type="number"
+                   step="0.01"
+                   min="0.01" />
+
+            <span asp-validation-for="AmountDue"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Due Date -->
+        <div class="form-group mb-3">
+
+            <label asp-for="DueDate"
+                   class="control-label">
+            </label>
+
+            <input asp-for="DueDate"
+                   class="form-control"
+                   type="date" />
+
+            <span asp-validation-for="DueDate"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Penalty -->
+        <div class="form-group mb-3">
+
+            <label asp-for="PenaltyAmount"
+                   class="control-label">
+            </label>
+
+            <input asp-for="PenaltyAmount"
+                   class="form-control"
+                   type="number"
+                   step="0.01"
+                   min="0" />
+
+            <span asp-validation-for="PenaltyAmount"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Payment Status -->
+        <div class="form-group mb-3">
+
+            <label asp-for="PaymentStatus"
+                   class="control-label">
+            </label>
+
+            <select asp-for="PaymentStatus"
+                    class="form-control"
+                    asp-items="Html.GetEnumSelectList<SmartSociety.Models.Enums.PaymentStatus>()">
+            </select>
+
+            <span asp-validation-for="PaymentStatus"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- Buttons -->
+        <div class="mt-4">
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Create
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back to List
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

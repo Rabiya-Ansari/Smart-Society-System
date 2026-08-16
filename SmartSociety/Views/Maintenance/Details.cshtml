@@ -1,0 +1,84 @@
+@model SmartSociety.Models.MaintenanceBill
+
+@{
+    ViewData["Title"] = "Maintenance Bill Details";
+}
+
+<div class="container mt-4">
+    <h2>Maintenance Bill Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Flat</dt>
+        <dd class="col-sm-9">@Model.Flat.BlockName - @Model.Flat.FlatNumber</dd>
+
+        <dt class="col-sm-3">Billing Month</dt>
+        <dd class="col-sm-9">@Model.BillingMonth.ToString("yyyy-MM")</dd>
+
+        <dt class="col-sm-3">Amount Due</dt>
+        <dd class="col-sm-9">@Model.AmountDue</dd>
+
+        <dt class="col-sm-3">Penalty</dt>
+        <dd class="col-sm-9">@Model.PenaltyAmount</dd>
+
+        <dt class="col-sm-3">Due Date</dt>
+        <dd class="col-sm-9">@Model.DueDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">Payment Status</dt>
+        <dd class="col-sm-9">@Model.PaymentStatus</dd>
+    </dl>
+
+    <h4>Bill Items</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>Description</th><th>Amount</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BillItems)
+            {
+                <tr>
+                    <td>@item.Description</td>
+                    <td>@item.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="mb-2">
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="Maintenance"
+               asp-action="AddBillItem"
+               asp-route-billId="@Model.Id"
+               class="btn btn-primary">
+                Add Bill Item
+            </a>
+
+            <a asp-controller="Payment"
+               asp-action="Create"
+               asp-route-billId="@Model.Id"
+               class="btn btn-success">
+                Record Payment
+            </a>
+        }
+    </div>
+
+    <h4>Payments</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>Date</th><th>Amount</th><th>Method</th><th>Status</th><th>Reference</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Payments)
+            {
+                <tr>
+                    <td>@p.PaymentDate</td>
+                    <td>@p.Amount</td>
+                    <td>@p.PaymentMethod</td>
+                    <td>@p.PaymentStatus</td>
+                    <td>@p.TransactionReference</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+</div>

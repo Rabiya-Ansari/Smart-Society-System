@@ -1,0 +1,9 @@
+- [x] Redesign global stylesheet (`wwwroot/css/site.css`) with premium design language, CSS variables, dark/light theme, custom scrollbars, animations, and typography.
+- [x] Redesign global layout (`Views/Shared/_Layout.cshtml`), incorporating header-level theme initializer, toggle controls, modern side-nav states, and a client-side server-alert interceptor for toasts.
+- [x] Redesign authentication views (`Login.cshtml` and `Register.cshtml`) with a split-screen premium design and glassmorphic cards.
+- [x] Redesign guest landing page (`Views/Home/Index.cshtml`) with a modern SaaS presentation, feature grid, and statistics counters.
+- [x] Redesign Administrator dashboard (`Views/Admin/Index.cshtml`) with KPI cards and elegant quick action links.
+- [x] Redesign Resident dashboard (`Views/Home/ResidentDashboard.cshtml`) with custom profile views and quick actions.
+- [x] Redesign Security gate terminal (`Views/Security/Index.cshtml` and `VerifyPass.cshtml`) with large touchscreen-friendly elements and error state indicators.
+- [x] Verify styling for all CRUD table structures and form inputs automatically via global overrides.
+- [x] Execute `dotnet build` and ensure zero compilation errors.

@@ -1,0 +1,123 @@
+@model SmartSociety.Models.Complaint
+
+@{
+    ViewData["Title"] = "Create Complaint";
+}
+
+<div class="container mt-4">
+
+    <h1>Create Complaint</h1>
+
+    <hr />
+
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <!-- ALL VALIDATION ERRORS -->
+        <div asp-validation-summary="All"
+             class="text-danger mb-3">
+        </div>
+
+
+        <!-- RESIDENT -->
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="form-group mb-3">
+
+                <label asp-for="ResidentProfileId"
+                       class="control-label">
+                    Resident
+                </label>
+
+                <select asp-for="ResidentProfileId"
+                        class="form-control"
+                        asp-items="ViewBag.Residents">
+
+                    <option value="">
+                        -- Select Resident --
+                    </option>
+
+                </select>
+
+                <span asp-validation-for="ResidentProfileId"
+                      class="text-danger">
+                </span>
+
+            </div>
+        }
+
+
+        <!-- CATEGORY -->
+
+        <div class="form-group mb-3">
+
+            <label asp-for="Category"
+                   class="control-label">
+                Complaint Category
+            </label>
+
+            <select asp-for="Category"
+                    class="form-control"
+                    asp-items="ViewBag.Categories">
+
+                <option value="">
+                    -- Select Category --
+                </option>
+
+            </select>
+
+            <span asp-validation-for="Category"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="form-group mb-3">
+
+            <label asp-for="Description"
+                   class="control-label">
+                Description
+            </label>
+
+            <textarea asp-for="Description"
+                      class="form-control"
+                      rows="5"
+                      placeholder="Enter complaint description (minimum 10 characters)"></textarea>
+
+            <span asp-validation-for="Description"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="mt-4">
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Submit Complaint
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back to List
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

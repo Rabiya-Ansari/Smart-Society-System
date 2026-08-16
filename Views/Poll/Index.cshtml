@@ -1,0 +1,35 @@
+@model IEnumerable<SmartSociety.Models.Poll>
+
+@{
+    ViewData["Title"] = "Polls";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Polls</h2>
+        @if (User.IsInRole("Admin")) { <a asp-action="Create" class="btn btn-primary">Create Poll</a> }
+    </div>
+
+    @if (TempData["Success"] != null) { <div class="alert alert-success">@TempData["Success"]</div> }
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr><th>Question</th><th>Start</th><th>End</th><th>Active</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Question</td>
+                    <td>@p.StartDate</td>
+                    <td>@p.EndDate</td>
+                    <td>@(p.IsActive ? "Yes" : "No")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-sm btn-info">Details / Results</a>
+                        @if (User.IsInRole("Admin")) { <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-sm btn-danger">Delete</a> }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,37 @@
+@model SmartSociety.Models.Visitor
+
+@{
+    ViewData["Title"] = "Delete Visitor";
+}
+
+<div class="container mt-4">
+
+    <h2>Delete Visitor</h2>
+
+    <div class="alert alert-danger">
+        <strong>Are you sure?</strong> This action cannot be undone.
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.VisitorName</dd>
+
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">@Model.Phone</dd>
+
+        <dt class="col-sm-3">Gate Pass</dt>
+        <dd class="col-sm-9">@Model.GatePassCode</dd>
+
+        <dt class="col-sm-3">Flat</dt>
+        <dd class="col-sm-9">@Model.Flat.BlockName - @Model.Flat.FlatNumber</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+
+</div>

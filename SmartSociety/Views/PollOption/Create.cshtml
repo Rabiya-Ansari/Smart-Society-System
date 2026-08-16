@@ -1,0 +1,27 @@
+@model SmartSociety.Models.PollOption
+
+@{
+    ViewData["Title"] = "Add Poll Option";
+}
+
+<div class="container mt-4">
+    <h1>Add Option</h1>
+
+    <form asp-action="Create" method="post">
+        <input type="hidden" asp-for="PollId" />
+
+        <div class="form-group">
+            <label asp-for="OptionText" class="control-label"></label>
+            <input asp-for="OptionText" class="form-control" />
+            <span asp-validation-for="OptionText" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add</button>
+        <a asp-controller="Poll" asp-action="Details" asp-route-id="@Model.PollId" class="btn btn-link">Back</a>
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

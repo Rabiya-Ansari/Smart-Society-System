@@ -1,0 +1,49 @@
+@model SmartSociety.Models.Payment
+
+@{
+    ViewData["Title"] = "Record Payment";
+    var bill = ViewBag.Bill as SmartSociety.Models.MaintenanceBill;
+}
+
+<div class="container mt-4">
+    <h1>Record Payment</h1>
+
+    @if (bill != null)
+    {
+        <div class="mb-3">
+            <strong>Bill for:</strong> @bill.Flat.BlockName - @bill.Flat.FlatNumber<br />
+            <strong>Amount Due:</strong> @bill.AmountDue<br />
+            <strong>Penalty:</strong> @bill.PenaltyAmount<br />
+        </div>
+    }
+
+    <form asp-action="Create" method="post">
+        <input type="hidden" asp-for="MaintenanceBillId" />
+
+        <div class="form-group">
+            <label asp-for="Amount" class="control-label"></label>
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PaymentMethod" class="control-label"></label>
+            <select asp-for="PaymentMethod" class="form-control" asp-items="ViewBag.Methods"></select>
+            <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TransactionReference" class="control-label"></label>
+            <input asp-for="TransactionReference" class="form-control" />
+            <span asp-validation-for="TransactionReference" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Record Payment</button>
+        <a asp-controller="Maintenance" asp-action="Details" asp-route-id="@Model.MaintenanceBillId" class="btn btn-link">Back to Bill</a>
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

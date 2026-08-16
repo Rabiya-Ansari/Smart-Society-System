@@ -1,0 +1,34 @@
+@model SmartSociety.Models.AmenityBooking
+
+@{
+    ViewData["Title"] = "Cancel Booking";
+}
+
+<div class="container mt-4">
+
+    <h2>Cancel Booking</h2>
+
+    <div class="alert alert-danger">
+        <strong>Are you sure?</strong> This will cancel the booking.
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Amenity</dt>
+        <dd class="col-sm-9">@Model.Amenity.Name</dd>
+
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">@Model.BookingDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">Time</dt>
+        <dd class="col-sm-9">@Model.StartTime - @Model.EndTime</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <button type="submit" class="btn btn-danger">Yes, Cancel</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </form>
+
+</div>

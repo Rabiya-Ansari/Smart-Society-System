@@ -1,0 +1,47 @@
+@model IEnumerable<SmartSociety.Models.Complaint>
+
+@{
+    ViewData["Title"] = "Complaints";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Complaints</h2>
+        <a asp-action="Create" class="btn btn-primary">New Complaint</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Resident</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Assigned</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.ResidentProfile.FullName</td>
+                    <td>@c.Category</td>
+                    <td>@c.Status</td>
+                    <td>@c.CreatedAt</td>
+                    <td>@(c.AssignedStaff?.Email ?? "-")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@c.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@c.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

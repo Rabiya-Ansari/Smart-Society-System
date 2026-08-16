@@ -1,0 +1,313 @@
+@model IEnumerable<SmartSociety.Models.Complaint>
+
+@using SmartSociety.Models.Enums
+
+@{
+    ViewData["Title"] =
+        User.IsInRole("MaintenanceStaff")
+            ? "Assigned Complaints"
+            : "Complaints";
+}
+
+<div class="container-fluid">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                @ViewData["Title"]
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                @if (User.IsInRole("MaintenanceStaff"))
+                {
+                    <span>Complaints assigned to you</span>
+                }
+                else if (User.IsInRole("Resident"))
+                {
+                    <span>Manage your complaints</span>
+                }
+                else
+                {
+                    <span>Manage community complaints</span>
+                }
+
+            </p>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create"
+               class="btn btn-primary">
+
+                <i class="bi bi-plus-lg"></i>
+                New Complaint
+
+            </a>
+        }
+
+    </div>
+
+
+    <!-- SUCCESS -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+
+    <!-- ERROR -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+
+    <!-- TABLE -->
+    <div class="card shadow-sm border-0">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+                    <tr>
+
+                        <th>Resident</th>
+
+                        <th>Category</th>
+
+                        <th>Status</th>
+
+                        <th>Created</th>
+
+                        @if (User.IsInRole("MaintenanceStaff"))
+                        {
+                            <th>SLA</th>
+                        }
+
+                        <th>Assigned</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    @if (!Model.Any())
+                    {
+                        <tr>
+
+                            <td colspan="7"
+                                class="text-center py-5 text-muted">
+
+                                No complaints found.
+
+                            </td>
+
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <!-- RESIDENT -->
+                                <td>
+
+                                    <strong>
+                                        @(item.ResidentProfile?.FullName
+                                            ?? "Unknown Resident")
+                                    </strong>
+
+                                </td>
+
+
+                                <!-- CATEGORY -->
+                                <td>
+                                    @item.Category
+                                </td>
+
+
+                                <!-- STATUS -->
+                                <td>
+
+                                    @if (item.Status == ComplaintStatus.Pending)
+                                    {
+                                        <span class="badge bg-warning text-dark">
+                                            Pending
+                                        </span>
+                                    }
+                                    else if (item.Status == ComplaintStatus.InProgress)
+                                    {
+                                        <span class="badge bg-info">
+                                            In Progress
+                                        </span>
+                                    }
+                                    else if (item.Status == ComplaintStatus.Resolved)
+                                    {
+                                        <span class="badge bg-success">
+                                            Resolved
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            @item.Status
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <!-- CREATED -->
+                                <td>
+
+                                    @item.CreatedAt.ToLocalTime().ToString(
+                                        "dd/MM/yyyy hh:mm tt"
+                                    )
+
+                                </td>
+
+
+                                <!-- SLA -->
+                                @if (User.IsInRole("MaintenanceStaff"))
+                                {
+                                    <td>
+
+                                        @if (item.SlaTargetDate.HasValue)
+                                        {
+                                            var sla = item.SlaTargetDate.Value;
+
+                                            @if (item.Status != ComplaintStatus.Resolved &&
+                                                 sla < DateTime.UtcNow)
+                                            {
+                                                <span class="badge bg-danger">
+                                                    SLA Breached
+                                                </span>
+                                            }
+                                            else if (item.Status == ComplaintStatus.Resolved)
+                                            {
+                                                <span class="badge bg-success">
+                                                    Completed
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span>
+                                                    @sla.ToLocalTime().ToString(
+                                                        "dd/MM/yyyy hh:mm tt"
+                                                    )
+                                                </span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">
+                                                Not set
+                                            </span>
+                                        }
+
+                                    </td>
+                                }
+
+
+                                <!-- ASSIGNED -->
+                                <td>
+
+                                    @if (item.AssignedStaff != null)
+                                    {
+                                        <strong>
+                                            @item.AssignedStaff.Email
+                                        </strong>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            Unassigned
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <!-- ACTIONS -->
+                                <td>
+
+                                    <div class="d-flex gap-2">
+
+                                        <!-- DETAILS -->
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-info btn-sm">
+
+                                            Details
+
+                                        </a>
+
+
+                                        <!-- MAINTENANCE STAFF UPDATE -->
+                                        @if (User.IsInRole("MaintenanceStaff"))
+                                        {
+                                            <a asp-action="Edit"
+                                               asp-route-id="@item.Id"
+                                               class="btn btn-warning btn-sm">
+
+                                                <i class="bi bi-pencil-square"></i>
+                                                Update
+
+                                            </a>
+                                        }
+
+
+                                        <!-- ADMIN EDIT -->
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a asp-action="Edit"
+                                               asp-route-id="@item.Id"
+                                               class="btn btn-warning btn-sm">
+
+                                                Edit
+
+                                            </a>
+                                        }
+
+
+                                        <!-- ADMIN DELETE -->
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a asp-action="Delete"
+                                               asp-route-id="@item.Id"
+                                               class="btn btn-danger btn-sm">
+
+                                                Delete
+
+                                            </a>
+                                        }
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SmartSociety.Models.Flat>
+
+@{
+    ViewData["Title"] = "Flats";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Flats</h2>
+
+        <a asp-action="Create" class="btn btn-primary">
+            Add New Flat
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+            <tr>
+                <th>Block</th>
+                <th>Flat Number</th>
+                <th>Occupancy Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var flat in Model)
+            {
+                <tr>
+                    <td>@flat.BlockName</td>
+
+                    <td>@flat.FlatNumber</td>
+
+                    <td>@flat.OccupancyType</td>
+
+                    <td>
+                        @if (flat.IsOccupied)
+                        {
+                            <span class="badge bg-danger">
+                                Occupied
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">
+                                Available
+                            </span>
+                        }
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@flat.Id"
+                           class="btn btn-sm btn-warning">
+                            Edit
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@flat.Id"
+                           class="btn btn-sm btn-danger">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>

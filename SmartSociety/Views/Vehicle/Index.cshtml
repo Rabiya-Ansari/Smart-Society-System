@@ -1,0 +1,47 @@
+@model IEnumerable<SmartSociety.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "Vehicles";
+}
+
+<h1>Vehicles</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New Vehicle</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Registration</th>
+            <th>Type</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Color</th>
+            <th>Resident</th>
+            <th>Flat</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RegistrationNumber</td>
+                <td>@item.VehicleType</td>
+                <td>@item.Make</td>
+                <td>@item.Model</td>
+                <td>@item.Color</td>
+                <td>@item.ResidentProfile?.FullName</td>
+                <td>@item.ResidentProfile?.Flat?.BlockName - @item.ResidentProfile?.Flat?.FlatNumber</td>
+                <td>@(item.IsActive ? "Yes" : "No")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
