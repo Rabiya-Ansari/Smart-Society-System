@@ -1859,3 +1859,113 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .form-control:focus-v
         height: 36px;
     }
 }
+
+
+/* =====================================================
+   GSAP + 3D FLIP CARD STYLES
+===================================================== */
+
+.flip-card {
+    height: 280px;
+    perspective: 1200px;
+    background: transparent;
+    border: none;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(.2, .7, .2, 1);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--card-bg, #ffffff);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flip-card-front {
+    transform: rotateY(0deg);
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient( 135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.14) );
+}
+
+    .flip-card-back h5 {
+        margin-bottom: 12px;
+    }
+
+    .flip-card-back ul {
+        padding-left: 20px;
+        margin: 10px 0 0;
+    }
+
+    .flip-card-back li {
+        margin-bottom: 8px;
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
+
+.flip-hint {
+    display: block;
+    margin-top: auto;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+    .flip-hint i {
+        margin-left: 5px;
+    }
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .flip-card {
+        height: 260px;
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        padding: 22px;
+    }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .flip-card-inner {
+        transition: none;
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: none;
+    }
+}
