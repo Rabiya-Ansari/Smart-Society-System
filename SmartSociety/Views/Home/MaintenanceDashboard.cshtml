@@ -1,0 +1,323 @@
+﻿@{
+    ViewData["Title"] = "Maintenance Dashboard";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <span class="text-primary fw-semibold">
+                MAINTENANCE PORTAL
+            </span>
+
+            <h1 class="fw-bold mb-1">
+                Welcome, Maintenance Staff
+            </h1>
+
+            <p class="text-secondary mb-0">
+                Complaints & Maintenance Operations
+            </p>
+
+        </div>
+
+        <a asp-controller="Complaint"
+           asp-action="Index"
+           class="btn btn-outline-primary">
+
+            Maintenance Center
+
+        </a>
+
+    </div>
+
+
+    <!-- STAT CARDS -->
+    <div class="row g-3">
+
+        <!-- OPEN -->
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card tone-primary">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        Open Complaints
+                    </span>
+
+                    <span class="stat-icon">
+                        <i class="bi bi-tools"></i>
+                    </span>
+
+                </div>
+
+                <strong>
+                    @ViewBag.OpenComplaints
+                </strong>
+
+                <a asp-controller="Complaint"
+                   asp-action="Index">
+
+                    View
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ASSIGNED -->
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card tone-info">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        Assigned Complaints
+                    </span>
+
+                    <span class="stat-icon">
+                        <i class="bi bi-person-check-fill"></i>
+                    </span>
+
+                </div>
+
+                <strong>
+                    @ViewBag.AssignedComplaints
+                </strong>
+
+                <a asp-controller="Complaint"
+                   asp-action="Index">
+
+                    Manage
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card tone-warning">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        Pending Requests
+                    </span>
+
+                    <span class="stat-icon">
+                        <i class="bi bi-hourglass-split"></i>
+                    </span>
+
+                </div>
+
+                <strong>
+                    @ViewBag.PendingComplaints
+                </strong>
+
+                <a asp-controller="Complaint"
+                   asp-action="Index">
+
+                    Track
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL -->
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card tone-danger">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        Total Complaints
+                    </span>
+
+                    <span class="stat-icon">
+                        <i class="bi bi-clipboard-data-fill"></i>
+                    </span>
+
+                </div>
+
+                <strong>
+                    @ViewBag.TotalComplaints
+                </strong>
+
+                <a asp-controller="Complaint"
+                   asp-action="Index">
+
+                    View All
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOWER SECTION -->
+    <div class="row g-4 mt-2">
+
+        <!-- QUICK ACTIONS -->
+        <div class="col-lg-8">
+
+            <div class="panel-card">
+
+                <h4>
+
+                    <i class="bi bi-lightning-charge-fill text-primary"></i>
+
+                    Quick Actions
+
+                </h4>
+
+                <div class="quick-grid">
+
+                    <a asp-controller="Complaint"
+                       asp-action="Index">
+
+                        <i class="bi bi-clipboard-check"></i>
+
+                        Assigned Complaints
+
+                    </a>
+
+
+                    <a asp-controller="Complaint"
+                       asp-action="Index">
+
+                        <i class="bi bi-tools"></i>
+
+                        Maintenance Requests
+
+                    </a>
+
+
+                    <a asp-controller="Complaint"
+                       asp-action="Index">
+
+                        <i class="bi bi-arrow-repeat"></i>
+
+                        Update Work Status
+
+                    </a>
+
+
+                    <a asp-controller="Complaint"
+                       asp-action="Index">
+
+                        <i class="bi bi-journal-text"></i>
+
+                        Work Notes
+
+                    </a>
+
+
+                    <a asp-controller="Notice"
+                       asp-action="Index">
+
+                        <i class="bi bi-megaphone-fill"></i>
+
+                        Notice Board
+
+                    </a>
+
+
+                    <a asp-controller="EmergencyContact"
+                       asp-action="Index">
+
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+
+                        Emergency Requests
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MAINTENANCE STATUS -->
+        <div class="col-lg-4">
+
+            <div class="panel-card">
+
+                <h4>
+
+                    <i class="bi bi-wrench-adjustable text-primary"></i>
+
+                    Maintenance Status
+
+                </h4>
+
+                <p class="text-secondary">
+                    Maintenance operations overview.
+                </p>
+
+
+                <div class="d-flex align-items-center gap-2 mb-3">
+
+                    <span class="stat-icon"
+                          style="width:36px;height:36px;font-size:15px;">
+
+                        <i class="bi bi-tools"></i>
+
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Active Requests
+                        </strong>
+
+                        <div class="text-secondary"
+                             style="font-size:13px;">
+
+                            @ViewBag.OpenComplaints requests require attention.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <a asp-controller="Complaint"
+                   asp-action="Index"
+                   class="btn btn-primary w-100">
+
+                    <i class="bi bi-arrow-right-circle"></i>
+
+                    Open Complaints
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

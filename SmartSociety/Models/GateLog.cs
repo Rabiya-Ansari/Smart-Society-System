@@ -8,9 +8,8 @@ namespace SmartSociety.Models
     {
         public int Id { get; set; }
 
-        // ==============================
         // Visitor
-        // ==============================
+     
 
         [Display(Name = "Visitor")]
         [Range(1, int.MaxValue, ErrorMessage = "Please select a visitor.")]
@@ -19,9 +18,8 @@ namespace SmartSociety.Models
         public Visitor? Visitor { get; set; }
 
 
-        // ==============================
         // Security Guard
-        // ==============================
+
 
         [Display(Name = "Security Guard")]
         [Required(ErrorMessage = "Please select a security guard.")]
@@ -30,34 +28,27 @@ namespace SmartSociety.Models
         public ApplicationUser? SecurityGuard { get; set; }
 
 
-        // ==============================
         // Entry Time
-        // ==============================
+
 
         [Display(Name = "Entry Time")]
         [Required(ErrorMessage = "Entry time is required.")]
         public DateTime EntryTime { get; set; }
 
-
-        // ==============================
         // Exit Time
-        // ==============================
+
 
         [Display(Name = "Exit Time")]
         public DateTime? ExitTime { get; set; }
 
-
-        // ==============================
         // Status
-        // ==============================
+
 
         [Display(Name = "Status")]
         public GateLogStatus Status { get; set; }
 
-
-        // ==============================
         // Remarks
-        // ==============================
+
 
         [Display(Name = "Remarks")]
         [StringLength(

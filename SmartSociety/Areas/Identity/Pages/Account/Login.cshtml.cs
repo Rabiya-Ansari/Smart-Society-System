@@ -56,8 +56,44 @@ public class LoginModel : PageModel
         public bool RememberMe { get; set; }
     }
 
-    public async Task OnGetAsync(string? returnUrl = null)
+    public async Task<IActionResult> OnGetAsync(string? returnUrl = null)
     {
+        // Already logged-in user should never see the Login page
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+
+                // Admin
+                if (roles.Any(r => r.Equals("Admin", StringComparison.OrdinalIgnoreCase)))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                // Resident / Homeowner
+                if (roles.Any(r =>
+                    r.Equals("Resident", StringComparison.OrdinalIgnoreCase) ||
+                    r.Equals("Homeowner", StringComparison.OrdinalIgnoreCase)))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                // Security / Guard
+                if (roles.Any(r =>
+                    r.Equals("Security", StringComparison.OrdinalIgnoreCase) ||
+                    r.Equals("Guard", StringComparison.OrdinalIgnoreCase)))
+                {
+                    return RedirectToAction("Index", "Security");
+                }
+            }
+
+            // Fallback for authenticated user with no recognized role
+            return RedirectToAction("Index", "Home");
+        }
+
         if (!string.IsNullOrEmpty(ErrorMessage))
         {
             ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -67,9 +103,12 @@ public class LoginModel : PageModel
 
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-        ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        ExternalLogins =
+            (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
         ReturnUrl = returnUrl;
+
+        return Page();
     }
 
     public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
@@ -98,7 +137,7 @@ public class LoginModel : PageModel
                     if (roles.Any(r => r.Equals("Resident", StringComparison.OrdinalIgnoreCase) ||
                                        r.Equals("Homeowner", StringComparison.OrdinalIgnoreCase)))
                     {
-                        return RedirectToAction("Index", "Resident");
+                        return RedirectToAction("Index", "Home");
                     }
 
                     // 3. Security / Guard Role Redirect (SecurityController par navigate karega)

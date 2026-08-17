@@ -23,51 +23,74 @@ namespace SmartSociety.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // ==========================================
             // NOT LOGGED IN
             // Show public Hero / Landing Page
-            // ==========================================
 
             if (!(User.Identity?.IsAuthenticated ?? false))
             {
                 return View();
             }
 
-
-            // ==========================================
             // ADMIN
-            // ==========================================
-
+           
             if (User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "Admin");
             }
-
-
-            // ==========================================
-            // SECURITY STAFF
-            // ==========================================
-
+             // SECURITY STAFF
+           
             if (User.IsInRole("SecurityStaff"))
             {
-                return RedirectToAction("Index", "Security");
+                ViewBag.VisitorCount =
+                    await _context.Visitors.CountAsync(
+                        v => v.ValidUntil >= DateTime.Now
+                    );
+
+                ViewBag.TodayEntries =
+                    await _context.GateLogs.CountAsync(
+                        g => g.EntryTime.Date == DateTime.Today
+                    );
+
+                ViewBag.TodayExits =
+                    await _context.GateLogs.CountAsync(
+                        g => g.ExitTime.HasValue &&
+                             g.ExitTime.Value.Date == DateTime.Today
+                    );
+
+                ViewBag.ActiveInside =
+                    await _context.GateLogs.CountAsync(
+                        g => !g.ExitTime.HasValue
+                    );
+
+                return View("SecurityDashboard");
             }
 
-
-            // ==========================================
             // MAINTENANCE STAFF
-            // ==========================================
-
+            
             if (User.IsInRole("MaintenanceStaff"))
             {
-                return RedirectToAction("Index", "Complaint");
+                ViewBag.OpenComplaints =
+                    await _context.Complaints.CountAsync(
+                        c => c.Status != Models.Enums.ComplaintStatus.Resolved
+                    );
+
+                ViewBag.AssignedComplaints =
+                    await _context.Complaints.CountAsync(
+                        c => c.AssignedStaffId != null
+                    );
+
+                ViewBag.TotalComplaints =
+                    await _context.Complaints.CountAsync();
+
+                ViewBag.PendingComplaints =
+                    await _context.Complaints.CountAsync(
+                        c => c.Status == Models.Enums.ComplaintStatus.Pending
+                    );
+
+                return View("MaintenanceDashboard");
             }
-
-
-            // ==========================================
             // RESIDENT
-            // ==========================================
-
+           
             if (User.IsInRole("Resident"))
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -145,9 +168,8 @@ namespace SmartSociety.Controllers
             }
 
 
-            // ==========================================
             // UNKNOWN ROLE
-            // ==========================================
+           
 
             return RedirectToPage(
                 "/Account/AccessDenied",

@@ -1,0 +1,288 @@
+﻿@{
+    ViewData["Title"] = "Security Dashboard";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <span class="text-primary fw-semibold">
+                SECURITY PORTAL
+            </span>
+
+            <h1 class="fw-bold mb-1">
+                Welcome, Security Staff
+            </h1>
+
+            <p class="text-secondary mb-0">
+                Gate Security & Visitor Operations
+            </p>
+        </div>
+
+        <a asp-controller="Security"
+           asp-action="Index"
+           class="btn btn-outline-primary">
+            Security Center
+        </a>
+
+    </div>
+
+
+    <!-- STAT CARDS -->
+    <div class="row g-3">
+
+        <!-- ACTIVE VISITORS -->
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card tone-primary">
+
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Active Visitors
+                    </span>
+
+                    <span class="stat-icon">
+                        <i class="bi bi-person-badge-fill"></i>
+                    </span>
+                </div>
+
+                <strong>
+                    @ViewBag.VisitorCount
+                </strong>
+
+                <a asp-controller="Visitor"
+                   asp-action="Index">
+                    View
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CURRENTLY INSIDE -->
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card tone-info">
+
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Currently Inside
+                    </span>
+
+                    <span class="stat-icon">
+                        <i class="bi bi-door-open-fill"></i>
+                    </span>
+                </div>
+
+                <strong>
+                    @ViewBag.ActiveInside
+                </strong>
+
+                <a asp-controller="GateLog"
+                   asp-action="Index">
+                    View
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- TODAY ENTRIES -->
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card tone-warning">
+
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Today's Entries
+                    </span>
+
+                    <span class="stat-icon">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                    </span>
+                </div>
+
+                <strong>
+                    @ViewBag.TodayEntries
+                </strong>
+
+                <a asp-controller="GateLog"
+                   asp-action="Index">
+                    Track
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- TODAY EXITS -->
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card tone-danger">
+
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Today's Exits
+                    </span>
+
+                    <span class="stat-icon">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </span>
+                </div>
+
+                <strong>
+                    @ViewBag.TodayExits
+                </strong>
+
+                <a asp-controller="GateLog"
+                   asp-action="Index">
+                    View
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS + SECURITY STATUS -->
+    <div class="row g-4 mt-2">
+
+        <!-- QUICK ACTIONS -->
+        <div class="col-lg-8">
+
+            <div class="panel-card">
+
+                <h4>
+                    <i class="bi bi-lightning-charge-fill text-primary"></i>
+                    Quick Actions
+                </h4>
+
+                <div class="quick-grid">
+
+                    <a asp-controller="Visitor"
+                       asp-action="Index">
+
+                        <i class="bi bi-person-badge-fill"></i>
+                        Visitor Management
+
+                    </a>
+
+
+                    <a asp-controller="GateLog"
+                       asp-action="Create">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        Register Gate Entry
+
+                    </a>
+
+
+                    <a asp-controller="GateLog"
+                       asp-action="Index">
+
+                        <i class="bi bi-journal-text"></i>
+                        Gate Logs
+
+                    </a>
+
+
+                    <a asp-controller="Vehicle"
+                       asp-action="Index">
+
+                        <i class="bi bi-car-front-fill"></i>
+                        Vehicle Verification
+
+                    </a>
+
+
+                    <a asp-controller="Notice"
+                       asp-action="Index">
+
+                        <i class="bi bi-megaphone-fill"></i>
+                        Notice Board
+
+                    </a>
+
+
+                    <a asp-controller="EmergencyContact"
+                       asp-action="Index">
+
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        Emergency Alerts
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SECURITY STATUS -->
+        <div class="col-lg-4">
+
+            <div class="panel-card">
+
+                <h4>
+                    <i class="bi bi-shield-fill-check text-primary"></i>
+                    Security Status
+                </h4>
+
+                <p class="text-secondary">
+                    Gate monitoring is currently active.
+                </p>
+
+                <div class="d-flex align-items-center gap-2 mb-4">
+
+                    <span class="stat-icon"
+                          style="width:38px;height:38px;font-size:16px;">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Gate Monitoring
+                        </strong>
+
+                        <div class="text-secondary"
+                             style="font-size:13px;">
+
+                            Active
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a asp-controller="GateLog"
+                   asp-action="Index"
+                   class="btn btn-primary w-100">
+
+                    <i class="bi bi-activity"></i>
+                    Open Gate Logs
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
