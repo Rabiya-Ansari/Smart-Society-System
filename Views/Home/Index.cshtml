@@ -1,11 +1,11 @@
 @{ ViewData["Title"] = "SmartSociety"; }
 
 <nav class="top-guest-nav">
-    <a class="brand" asp-controller="Home" asp-action="Index">
+    <a class="brand btn-primary" asp-controller="Home" asp-action="Index">
         <span class="brand-mark">S</span> SmartSociety
     </a>
     <div class="d-flex align-items-center gap-2">
-        <a asp-controller="Home" asp-action="Sitemap" class="btn btn-outline-secondary btn-sm d-none d-sm-inline-flex align-items-center gap-1"><i class="bi bi-diagram-3-fill"></i> Sitemap</a>
+        <a asp-controller="Home" asp-action="Sitemap" class="btn btn-outline-secondary btn-sm d-none d-sm-inline-flex align-items-center gap-1 btn-primary"><i class="bi bi-diagram-3-fill"></i> Sitemap</a>
         <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-primary btn-sm">Login</a>
         <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-sm">Get Started</a>
     </div>
@@ -19,7 +19,7 @@
         <div class="d-flex gap-2 flex-wrap mt-4">
             <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-lg"><i class="bi bi-box-arrow-in-right"></i> Login to Dashboard</a>
             <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-primary btn-lg"><i class="bi bi-person-plus-fill"></i> Create Account</a>
-            <a asp-controller="Home" asp-action="Sitemap" class="btn btn-outline-secondary btn-lg"><i class="bi bi-diagram-3-fill"></i> View Sitemap</a>
+            <a asp-controller="Home" asp-action="Sitemap" class="btn btn-outline-secondary btn-lg btn-primary"><i class="bi bi-diagram-3-fill"></i> View Sitemap</a>
         </div>
     </div>
 

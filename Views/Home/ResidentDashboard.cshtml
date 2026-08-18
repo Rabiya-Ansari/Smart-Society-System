@@ -1,7 +1,7 @@
 @using SmartSociety.Models
 @{ ViewData["Title"] = "Resident Dashboard"; var r=(ResidentProfile)ViewBag.Resident; }
 <div class="container-fluid py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4"><div><span class="text-primary fw-semibold">RESIDENT PORTAL</span><h1 class="fw-bold mb-1">Welcome, @r.FullName</h1><p class="text-secondary mb-0">@r.Flat.BlockName - @r.Flat.FlatNumber</p></div><a asp-controller="Resident" asp-action="Edit" asp-route-id="@r.Id" class="btn btn-outline-primary">My Profile</a></div>
+    <div class="d-flex justify-content-between align-items-center mb-4"><div><span class="text-primary fw-semibold">RESIDENT PORTAL</span><h1 class="fw-bold mb-1">Welcome, @r.FullName</h1><p class="text-secondary mb-0">@r.Flat.BlockName - @r.Flat.FlatNumber</p></div><a asp-controller="Resident" asp-action="Edit" asp-route-id="@r.Id" class="btn btn-outline-primary btn-warning">My Profile</a></div>
     <div class="row g-3">
         <div class="col-md-6 col-xl-3"><div class="stat-card tone-primary"><div class="stat-top"><span class="stat-label">Active Vehicles</span><span class="stat-icon"><i class="bi bi-car-front-fill"></i></span></div><strong>@ViewBag.VehicleCount</strong><a asp-controller="Vehicle" asp-action="Index">Manage <i class="bi bi-arrow-right"></i></a></div></div>
         <div class="col-md-6 col-xl-3"><div class="stat-card tone-info"><div class="stat-top"><span class="stat-label">Upcoming Visitors</span><span class="stat-icon"><i class="bi bi-person-badge-fill"></i></span></div><strong>@ViewBag.VisitorCount</strong><a asp-controller="Visitor" asp-action="Index">View <i class="bi bi-arrow-right"></i></a></div></div>
@@ -17,6 +17,6 @@
             <a asp-controller="FamilyMember" asp-action="Index"><i class="bi bi-people-fill"></i> Family Members</a>
             <a asp-controller="Notice" asp-action="Index"><i class="bi bi-megaphone-fill"></i> Notice Board</a>
         </div></div></div>
-        <div class="col-lg-4"><div class="panel-card"><h4><i class="bi bi-people-fill text-primary"></i> Community</h4><p class="text-secondary">Published notices: <b>@ViewBag.NoticeCount</b></p><a class="btn btn-primary w-100" asp-controller="Poll" asp-action="Index"><i class="bi bi-bar-chart-fill"></i> Open Polls</a></div></div>
+        <div class="col-lg-4"><div class="panel-card"><h4><i class="bi bi-people-fill text-primary"></i> Community</h4><p class="text-secondary">Published notices: <b>@ViewBag.NoticeCount</b></p><a class="btn w-100 btn-primary" asp-controller="Poll" asp-action="Index"><i class="bi bi-bar-chart-fill"></i> Open Polls</a></div></div>
     </div>
 </div>

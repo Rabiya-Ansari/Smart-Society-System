@@ -44,7 +44,7 @@
     </table>
     <div class="mb-2">
         <a asp-controller="BillItem" asp-action="Create" asp-route-maintenanceBillId="@Model.Id" class="btn btn-sm btn-primary">Add Bill Item</a>
-        <a asp-controller="Payment" asp-action="Create" asp-route-billId="@Model.Id" class="btn btn-sm btn-success">Record Payment</a>
+        <a asp-controller="Payment" asp-action="Create" asp-route-billId="@Model.Id" class="btn btn-sm btn-primary">Record Payment</a>
     </div>
 
     <h4>Payments</h4>
@@ -66,5 +66,5 @@
         </tbody>
     </table>
 
-    <a asp-action="Index" class="btn btn-link">Back to List</a>
+    <a asp-action="Index" class="btn btn-link btn-primary">Back to List</a>
 </div>

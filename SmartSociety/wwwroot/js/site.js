@@ -5,36 +5,6 @@
 (function () {
     "use strict";
 
-    /* ------------------------------------------------------------------ */
-    /* 1) DARK / LIGHT THEME                                              */
-    /* ------------------------------------------------------------------ */
-    var THEME_KEY = "smartsociety-theme";
-
-    function applyTheme(theme) {
-        if (theme === "dark") {
-            document.documentElement.setAttribute("data-theme", "dark");
-        } else {
-            document.documentElement.removeAttribute("data-theme");
-        }
-        document.querySelectorAll("[data-theme-icon]").forEach(function (el) {
-            el.className = "bi " + (theme === "dark" ? "bi-sun-fill" : "bi-moon-stars-fill") + " " + (el.dataset.extraClass || "");
-        });
-    }
-
-    function initTheme() {
-        var saved = localStorage.getItem(THEME_KEY);
-        var preferred = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        applyTheme(preferred);
-
-        document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
-            btn.addEventListener("click", function () {
-                var current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-                var next = current === "dark" ? "light" : "dark";
-                applyTheme(next);
-                localStorage.setItem(THEME_KEY, next);
-            });
-        });
-    }
 
     /* ------------------------------------------------------------------ */
     /* 2) TOAST NOTIFICATIONS — auto-converts existing Bootstrap .alert   */
@@ -192,10 +162,9 @@
     /* Boot                                                                */
     /* ------------------------------------------------------------------ */
     document.addEventListener("DOMContentLoaded", function () {
-        initTheme();
         migrateInlineAlertsToToasts();
         initScrollReveal();
         initCounters();
         initPasswordToggles();
     });
-})();
+})();z

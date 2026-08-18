@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using QRCoder;
 using SmartSociety.Data;
 using SmartSociety.Models;
 using SmartSociety.Services;
@@ -94,6 +95,62 @@ namespace SmartSociety.Controllers
             return View(visitor);
         }
 
+        // =========================================================
+        // GET: Visitor/Pass/5
+        // =========================================================
+
+        public async Task<IActionResult> Pass(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var visitor = await _context.Visitors
+                .Include(v => v.Flat)
+                .FirstOrDefaultAsync(v => v.Id == id);
+
+            if (visitor == null)
+                return NotFound();
+
+            // Admin/Security can view all visitor passes
+            if (User.IsInRole("Admin") ||
+                User.IsInRole("SecurityStaff"))
+            {
+                // Continue
+            }
+            else
+            {
+                // Resident can view only own flat visitor pass
+                var resident = await GetCurrentResidentAsync();
+
+                if (resident == null)
+                    return Forbid();
+
+                if (visitor.FlatId != resident.FlatId)
+                    return Forbid();
+            }
+
+            // Gate pass must exist before generating QR
+            if (string.IsNullOrWhiteSpace(visitor.GatePassCode))
+            {
+                TempData["Error"] = "Gate pass code is not available for this visitor.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Generate QR from existing GatePassCode
+            using var qrGenerator = new QRCodeGenerator();
+
+            using var qrCodeData = qrGenerator.CreateQrCode(
+                visitor.GatePassCode,
+                QRCodeGenerator.ECCLevel.Q);
+
+            var qrCode = new PngByteQRCode(qrCodeData);
+
+            byte[] qrCodeImage = qrCode.GetGraphic(20);
+
+            ViewBag.QrCode = Convert.ToBase64String(qrCodeImage);
+
+            return View(visitor);
+        }
 
         // =========================================================
         // GET: Visitor/Create

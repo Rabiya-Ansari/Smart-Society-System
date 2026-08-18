@@ -23,6 +23,6 @@
         @Html.AntiForgeryToken()
         <input type="hidden" asp-for="Id" />
         <button type="submit" class="btn btn-danger">Yes, Delete</button>
-        <a asp-controller="Maintenance" asp-action="Details" asp-route-id="@Model.MaintenanceBillId" class="btn btn-secondary">Cancel</a>
+        <a asp-controller="Maintenance" asp-action="Details" asp-route-id="@Model.MaintenanceBillId" class="btn btn-info">Cancel</a>
     </form>
 </div>

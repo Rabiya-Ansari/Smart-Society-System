@@ -28,7 +28,7 @@
         @if (isResident) { <div class="alert alert-info">Residents may edit the category and description while the complaint is Pending.</div> }
         @if (isStaff) { <div class="alert alert-info">Maintenance staff may update status to In Progress/Resolved and add work notes.</div> }
         <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a asp-action="Index" class="btn btn-secondary">Back</a>
+        <a asp-action="Index" class="btn btn-primary">Back</a>
     </form>
 </div>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -32,6 +32,85 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SmartSociety.styles.css" asp-append-version="true" />
+    <style>
+        /* SmartSociety unified action-button theme — UI only */
+        .btn {
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all .2s ease;
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: #8A3F05;
+            border-color: #8A3F05;
+            color: #FFFFFF;
+        }
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: #6F3003;
+            border-color: #6F3003;
+            color: #FFFFFF;
+        }
+
+        /* Details — same everywhere */
+        .btn-info {
+            background: #E1D0C7;
+            border-color: #8A3F05;
+            color: #6F3003;
+        }
+        .btn-info:hover,
+        .btn-info:focus {
+            background: #8A3F05;
+            border-color: #8A3F05;
+            color: #FFFFFF;
+        }
+
+        /* Edit — same everywhere */
+        .btn-warning {
+            background: #8A3F05;
+            border-color: #8A3F05;
+            color: #FFFFFF;
+        }
+        .btn-warning:hover,
+        .btn-warning:focus {
+            background: #6F3003;
+            border-color: #6F3003;
+            color: #FFFFFF;
+        }
+
+        /* Delete — same everywhere */
+        .btn-danger {
+            background: #B42318;
+            border-color: #B42318;
+            color: #FFFFFF;
+        }
+        .btn-danger:hover,
+        .btn-danger:focus {
+            background: #8F1D14;
+            border-color: #8F1D14;
+            color: #FFFFFF;
+        }
+
+        /* Back / Cancel — same everywhere */
+        .btn-secondary {
+            background: #FFFFFF;
+            border-color: rgba(138, 63, 5, .35);
+            color: #6F3003;
+        }
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background: #E1D0C7;
+            border-color: #8A3F05;
+            color: #6F3003;
+        }
+
+        .btn-sm {
+            padding: .38rem .72rem;
+            font-size: .82rem;
+        }
+    </style>
+
 </head>
 <body>
 @if (User.Identity?.IsAuthenticated == true)
@@ -39,7 +118,7 @@
     <div class="app-shell">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <aside class="sidebar" id="appSidebar">
-            <a class="brand" asp-controller="Home" asp-action="Index">
+            <a class="brand btn-primary" asp-controller="Home" asp-action="Index">
                 <span class="brand-mark">S</span>
                 <span>SmartSociety<span class="brand-sub">Community OS</span></span>
             </a>
@@ -54,65 +133,65 @@
             </div>
 
             <nav class="side-nav">
-                <a class="@(currentController == "Home" && currentAction != "Sitemap" ? "active" : "")" asp-controller="Home" asp-action="Index"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+                <a class="@(currentController == btn-primary"Home" && currentAction != "Sitemap" ? "active" : "")" asp-controller="Home" asp-action="Index"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
 
                 @if (User.IsInRole("Admin"))
                 {
                     <div class="nav-heading">Community</div>
-                    <a class="@navClass("Resident")" asp-controller="Resident" asp-action="Index"><i class="bi bi-people-fill"></i> Residents</a>
-                    <a class="@navClass("Flat")" asp-controller="Flat" asp-action="Index"><i class="bi bi-building"></i> Flats</a>
-                    <a class="@navClass("Vehicle")" asp-controller="Vehicle" asp-action="Index"><i class="bi bi-car-front-fill"></i> Vehicles</a>
+                    <a class="@navClass( btn-primary"Resident")" asp-controller="Resident" asp-action="Index"><i class="bi bi-people-fill"></i> Residents</a>
+                    <a class="@navClass( btn-primary"Flat")" asp-controller="Flat" asp-action="Index"><i class="bi bi-building"></i> Flats</a>
+                    <a class="@navClass( btn-primary"Vehicle")" asp-controller="Vehicle" asp-action="Index"><i class="bi bi-car-front-fill"></i> Vehicles</a>
 
                     <div class="nav-heading">Security Management</div>
-                    <a class="@navClass("Security")" asp-controller="Security" asp-action="Index"><i class="bi bi-shield-fill-check"></i> Security Dashboard</a>
-                    <a class="@(currentController == "Security" && currentAction == "VerifyPass" ? "active" : "")" asp-controller="Security" asp-action="VerifyPass"><i class="bi bi-qr-code-scan"></i> Visitor Verification</a>
-                    <a class="@navClass("Visitor")" asp-controller="Visitor" asp-action="Index"><i class="bi bi-person-badge-fill"></i> Visitor Management</a>
-                    <a class="@navClass("GateLog")" asp-controller="GateLog" asp-action="Index"><i class="bi bi-shield-lock-fill"></i> Gate Logs</a>
+                    <a class="@navClass( btn-primary"Security")" asp-controller="Security" asp-action="Index"><i class="bi bi-shield-fill-check"></i> Security Dashboard</a>
+                    <a class="@(currentController == btn-primary"Security" && currentAction == "VerifyPass" ? "active" : "")" asp-controller="Security" asp-action="VerifyPass"><i class="bi bi-qr-code-scan"></i> Visitor Verification</a>
+                    <a class="@navClass( btn-primary"Visitor")" asp-controller="Visitor" asp-action="Index"><i class="bi bi-person-badge-fill"></i> Visitor Management</a>
+                    <a class="@navClass( btn-primary"GateLog")" asp-controller="GateLog" asp-action="Index"><i class="bi bi-shield-lock-fill"></i> Gate Logs</a>
 
                     <div class="nav-heading">Operations</div>
-                    <a class="@navClass("Amenity")" asp-controller="Amenity" asp-action="Index"><i class="bi bi-cup-hot-fill"></i> Amenities</a>
-                    <a class="@navClass("AmenityBooking")" asp-controller="AmenityBooking" asp-action="Index"><i class="bi bi-calendar2-check-fill"></i> Bookings</a>
-                    <a class="@navClass("Maintenance")" asp-controller="Maintenance" asp-action="Index"><i class="bi bi-receipt"></i> Maintenance Bills</a>
-                    <a class="@navClass("Complaint")" asp-controller="Complaint" asp-action="Index"><i class="bi bi-tools"></i> Complaints</a>
+                    <a class="@navClass( btn-primary"Amenity")" asp-controller="Amenity" asp-action="Index"><i class="bi bi-cup-hot-fill"></i> Amenities</a>
+                    <a class="@navClass( btn-primary"AmenityBooking")" asp-controller="AmenityBooking" asp-action="Index"><i class="bi bi-calendar2-check-fill"></i> Bookings</a>
+                    <a class="@navClass( btn-primary"Maintenance")" asp-controller="Maintenance" asp-action="Index"><i class="bi bi-receipt"></i> Maintenance Bills</a>
+                    <a class="@navClass( btn-primary"Complaint")" asp-controller="Complaint" asp-action="Index"><i class="bi bi-tools"></i> Complaints</a>
 
                     <div class="nav-heading">Community Board</div>
-                    <a class="@navClass("Notice")" asp-controller="Notice" asp-action="Index"><i class="bi bi-megaphone-fill"></i> Notices</a>
-                    <a class="@navClass("Poll")" asp-controller="Poll" asp-action="Index"><i class="bi bi-bar-chart-fill"></i> Polls</a>
-                    <a class="@navClass("AuditLog")" asp-controller="AuditLog" asp-action="Index"><i class="bi bi-journal-text"></i> Audit Logs</a>
+                    <a class="@navClass( btn-primary"Notice")" asp-controller="Notice" asp-action="Index"><i class="bi bi-megaphone-fill"></i> Notices</a>
+                    <a class="@navClass( btn-primary"Poll")" asp-controller="Poll" asp-action="Index"><i class="bi bi-bar-chart-fill"></i> Polls</a>
+                    <a class="@navClass( btn-primary"AuditLog")" asp-controller="AuditLog" asp-action="Index"><i class="bi bi-journal-text"></i> Audit Logs</a>
                 }
 
                 @if (User.IsInRole("Resident"))
                 {
                     <div class="nav-heading">My Society</div>
-                    <a class="@navClass("Vehicle")" asp-controller="Vehicle" asp-action="Index"><i class="bi bi-car-front-fill"></i> My Vehicles</a>
-                    <a class="@navClass("Visitor")" asp-controller="Visitor" asp-action="Index"><i class="bi bi-person-badge-fill"></i> My Visitors</a>
-                    <a class="@navClass("Complaint")" asp-controller="Complaint" asp-action="Index"><i class="bi bi-tools"></i> My Complaints</a>
-                    <a class="@navClass("Maintenance")" asp-controller="Maintenance" asp-action="Index"><i class="bi bi-receipt"></i> Bills & Payments</a>
+                    <a class="@navClass( btn-primary"Vehicle")" asp-controller="Vehicle" asp-action="Index"><i class="bi bi-car-front-fill"></i> My Vehicles</a>
+                    <a class="@navClass( btn-primary"Visitor")" asp-controller="Visitor" asp-action="Index"><i class="bi bi-person-badge-fill"></i> My Visitors</a>
+                    <a class="@navClass( btn-primary"Complaint")" asp-controller="Complaint" asp-action="Index"><i class="bi bi-tools"></i> My Complaints</a>
+                    <a class="@navClass( btn-primary"Maintenance")" asp-controller="Maintenance" asp-action="Index"><i class="bi bi-receipt"></i> Bills & Payments</a>
 
                     <div class="nav-heading">Lifestyle</div>
-                    <a class="@navClass("Amenity")" asp-controller="Amenity" asp-action="Index"><i class="bi bi-cup-hot-fill"></i> Amenities</a>
-                    <a class="@navClass("AmenityBooking")" asp-controller="AmenityBooking" asp-action="Index"><i class="bi bi-calendar2-check-fill"></i> My Bookings</a>
-                    <a class="@navClass("Notice")" asp-controller="Notice" asp-action="Index"><i class="bi bi-megaphone-fill"></i> Notices</a>
-                    <a class="@navClass("Poll")" asp-controller="Poll" asp-action="Index"><i class="bi bi-bar-chart-fill"></i> Polls</a>
+                    <a class="@navClass( btn-primary"Amenity")" asp-controller="Amenity" asp-action="Index"><i class="bi bi-cup-hot-fill"></i> Amenities</a>
+                    <a class="@navClass( btn-primary"AmenityBooking")" asp-controller="AmenityBooking" asp-action="Index"><i class="bi bi-calendar2-check-fill"></i> My Bookings</a>
+                    <a class="@navClass( btn-primary"Notice")" asp-controller="Notice" asp-action="Index"><i class="bi bi-megaphone-fill"></i> Notices</a>
+                    <a class="@navClass( btn-primary"Poll")" asp-controller="Poll" asp-action="Index"><i class="bi bi-bar-chart-fill"></i> Polls</a>
 
                     <div class="nav-heading">Household</div>
-                    <a class="@navClass("EmergencyContact")" asp-controller="EmergencyContact" asp-action="Index"><i class="bi bi-telephone-fill"></i> Emergency Contacts</a>
-                    <a class="@navClass("FamilyMember")" asp-controller="FamilyMember" asp-action="Index"><i class="bi bi-people-fill"></i> Family Members</a>
+                    <a class="@navClass( btn-primary"EmergencyContact")" asp-controller="EmergencyContact" asp-action="Index"><i class="bi bi-telephone-fill"></i> Emergency Contacts</a>
+                    <a class="@navClass( btn-primary"FamilyMember")" asp-controller="FamilyMember" asp-action="Index"><i class="bi bi-people-fill"></i> Family Members</a>
                 }
 
                 @if (User.IsInRole("SecurityStaff"))
                 {
                     <div class="nav-heading">Gate Terminal</div>
-                    <a class="@(currentController == "Security" && currentAction == "Index" ? "active" : "")" asp-controller="Security" asp-action="Index"><i class="bi bi-shield-fill-check"></i> Security Dashboard</a>
-                    <a class="@(currentController == "Security" && currentAction == "VerifyPass" ? "active" : "")" asp-controller="Security" asp-action="VerifyPass"><i class="bi bi-qr-code-scan"></i> Verify Pass</a>
-                    <a class="@navClass("Visitor")" asp-controller="Visitor" asp-action="Index"><i class="bi bi-person-badge-fill"></i> Visitors</a>
-                    <a class="@navClass("GateLog")" asp-controller="GateLog" asp-action="Index"><i class="bi bi-journal-text"></i> Gate Logs</a>
+                    <a class="@(currentController == btn-primary"Security" && currentAction == "Index" ? "active" : "")" asp-controller="Security" asp-action="Index"><i class="bi bi-shield-fill-check"></i> Security Dashboard</a>
+                    <a class="@(currentController == btn-primary"Security" && currentAction == "VerifyPass" ? "active" : "")" asp-controller="Security" asp-action="VerifyPass"><i class="bi bi-qr-code-scan"></i> Verify Pass</a>
+                    <a class="@navClass( btn-primary"Visitor")" asp-controller="Visitor" asp-action="Index"><i class="bi bi-person-badge-fill"></i> Visitors</a>
+                    <a class="@navClass( btn-primary"GateLog")" asp-controller="GateLog" asp-action="Index"><i class="bi bi-journal-text"></i> Gate Logs</a>
                 }
 
                 @if (User.IsInRole("MaintenanceStaff"))
                 {
                     <div class="nav-heading">Work Queue</div>
-                    <a class="@navClass("Complaint")" asp-controller="Complaint" asp-action="Index"><i class="bi bi-tools"></i> Assigned Tickets</a>
+                    <a class="@navClass( btn-primary"Complaint")" asp-controller="Complaint" asp-action="Index"><i class="bi bi-tools"></i> Assigned Tickets</a>
                 }
             </nav>
 
@@ -127,7 +206,7 @@
         <main class="main-content">
             <div class="mobile-topbar">
                 <button class="btn btn-outline-secondary" id="sidebarToggle" aria-label="Toggle menu"><i class="bi bi-list"></i></button>
-                <a class="brand" asp-controller="Home" asp-action="Index"><span class="brand-mark" style="width:28px;height:28px;font-size:13px;">S</span> SmartSociety</a>
+                <a class="brand btn-primary" asp-controller="Home" asp-action="Index"><span class="brand-mark" style="width:28px;height:28px;font-size:13px;">S</span> SmartSociety</a>
                 <button type="button" class="theme-toggle" aria-label="Toggle dark mode" style="margin-left:auto;">
                     <i class="bi bi-moon-stars-fill"></i>
                     <i class="bi bi-sun-fill"></i>
