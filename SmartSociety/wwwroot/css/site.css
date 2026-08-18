@@ -1,15 +1,7 @@
-/*
-=========================================================
-SMART SOCIETY — CLEAN ADVANCED UI DESIGN SYSTEM
-=========================================================
-*/
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-
-/* =========================================================
-   ROOT VARIABLES
-========================================================= */
 
 :root {
     /* Brand */
@@ -153,9 +145,9 @@ h6 {
 }
 
 
-/* =========================================================
+/* 
    SIDEBAR
-========================================================= */
+*/
 
 .sidebar {
     width: var(--sidebar-w);
@@ -173,7 +165,7 @@ h6 {
 
 /* =========================================================
    BRAND
-========================================================= */
+*/
 
 .brand {
     color: var(--white);
@@ -1045,7 +1037,7 @@ label.form-label {
     padding: 0;
     overflow: hidden;
     background-image: url('/images/smartsociety-hero.png');
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
     display: flex;
@@ -3488,9 +3480,6 @@ button:focus-visible,
 
 /*Services*/
 
-/* =========================================
-   SMART SOCIETY - SERVICES
-   ========================================= */
 
 .ss-services-section {
     width: 100%;
@@ -3704,5 +3693,580 @@ button:focus-visible,
 
     .ss-service-card {
         min-height: 270px;
+    }
+}
+
+/* =========================================================
+   SMART SOCIETY - PREMIUM LANDING ANIMATIONS
+   ========================================================= */
+
+/* ---------- Base Reveal ---------- */
+
+.reveal,
+.ss-features-section,
+.ss-services-section,
+.contact-section {
+    opacity: 0;
+    transform: translateY(45px);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.22, 1, .36, 1);
+}
+
+    .reveal.show,
+    .ss-features-section.show,
+    .ss-services-section.show,
+    .contact-section.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+/* ---------- HERO ---------- */
+
+.ss-hero-left {
+    animation: heroContentIn 1s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.ss-eyebrow {
+    animation: heroBadgeIn 0.8s ease both;
+    animation-delay: .15s;
+}
+
+.ss-hero-title {
+    animation: heroTitleIn 1s cubic-bezier(.22, 1, .36, 1) both;
+    animation-delay: .25s;
+}
+
+.ss-hero-description {
+    animation: heroTextIn .9s ease both;
+    animation-delay: .45s;
+}
+
+.ss-hero-actions {
+    animation: heroTextIn .9s ease both;
+    animation-delay: .6s;
+}
+
+.ss-hero-stats {
+    animation: heroTextIn .9s ease both;
+    animation-delay: .75s;
+}
+
+
+/* ---------- HERO NAV ---------- */
+
+.ss-hero-nav {
+    animation: navDrop .8s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.ss-logo-shield {
+    animation: logoPulse 3s ease-in-out infinite;
+}
+
+
+/* ---------- HERO BUTTONS ---------- */
+
+.ss-primary-btn,
+.ss-secondary-btn,
+.ss-login-btn {
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+    .ss-primary-btn:hover,
+    .ss-secondary-btn:hover,
+    .ss-login-btn:hover {
+        transform: translateY(-4px);
+    }
+
+    .ss-primary-btn:hover {
+        box-shadow: 0 12px 30px rgba(138, 63, 5, .28);
+    }
+
+
+/* ---------- HERO STATS ---------- */
+
+.ss-stat {
+    transition: transform .35s ease;
+}
+
+    .ss-stat:hover {
+        transform: translateY(-7px);
+    }
+
+.ss-stat-icon {
+    transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.ss-stat:hover .ss-stat-icon {
+    transform: scale(1.12) rotate(-5deg);
+    box-shadow: 0 10px 25px rgba(138, 63, 5, .18);
+}
+
+
+/* ---------- ABOUT SECTION ---------- */
+
+.ss-hero + section h2 {
+    animation: aboutTitleReveal 1s ease both;
+}
+
+.ss-hero + section img {
+    animation: phoneFloat 4s ease-in-out infinite;
+}
+
+.ss-hero + section > div > div:last-child > div:first-child {
+    animation: circlePulse 5s ease-in-out infinite;
+}
+
+
+/* ---------- ABOUT FEATURE CARDS ---------- */
+
+.ss-hero + section div[style*="grid-template-columns"] > div {
+    opacity: 0;
+    transform: translateY(25px);
+    animation: cardReveal .7s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+    .ss-hero + section div[style*="grid-template-columns"] > div:nth-child(1) {
+        animation-delay: .1s;
+    }
+
+    .ss-hero + section div[style*="grid-template-columns"] > div:nth-child(2) {
+        animation-delay: .2s;
+    }
+
+    .ss-hero + section div[style*="grid-template-columns"] > div:nth-child(3) {
+        animation-delay: .3s;
+    }
+
+    .ss-hero + section div[style*="grid-template-columns"] > div:nth-child(4) {
+        animation-delay: .4s;
+    }
+
+    .ss-hero + section div[style*="grid-template-columns"] > div:hover {
+        transform: translateY(-8px) !important;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, .10);
+    }
+
+
+.ss-phone-frame {
+    animation: phoneFloat 4s ease-in-out infinite;
+    will-change: transform;
+}
+
+
+    /* Phone screen itself must NOT animate */
+    .ss-phone-frame img {
+        animation: none !important;
+        transform: none !important;
+    }
+
+
+/* Smooth floating animation */
+@keyframes phoneFloat {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-14px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* ---------- FEATURE CARDS ---------- */
+
+.ss-feature-card {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease;
+}
+
+.ss-features-section.show .ss-feature-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ss-feature-card:nth-child(1) {
+    transition-delay: .05s;
+}
+
+.ss-feature-card:nth-child(2) {
+    transition-delay: .12s;
+}
+
+.ss-feature-card:nth-child(3) {
+    transition-delay: .19s;
+}
+
+.ss-feature-card:nth-child(4) {
+    transition-delay: .26s;
+}
+
+.ss-feature-card:nth-child(5) {
+    transition-delay: .33s;
+}
+
+.ss-feature-card:nth-child(6) {
+    transition-delay: .40s;
+}
+
+.ss-feature-card:hover {
+    transform: translateY(-10px) !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .12);
+}
+
+.ss-feature-icon {
+    transition: transform .4s ease, background .3s ease;
+}
+
+.ss-feature-card:hover .ss-feature-icon {
+    transform: scale(1.12) rotate(5deg);
+}
+
+
+/* ---------- SERVICE CARDS ---------- */
+
+.ss-service-card {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease;
+}
+
+.ss-services-section.show .ss-service-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ss-service-card:nth-child(1) {
+    transition-delay: .05s;
+}
+
+.ss-service-card:nth-child(2) {
+    transition-delay: .10s;
+}
+
+.ss-service-card:nth-child(3) {
+    transition-delay: .15s;
+}
+
+.ss-service-card:nth-child(4) {
+    transition-delay: .20s;
+}
+
+.ss-service-card:nth-child(5) {
+    transition-delay: .25s;
+}
+
+.ss-service-card:nth-child(6) {
+    transition-delay: .30s;
+}
+
+.ss-service-card:nth-child(7) {
+    transition-delay: .35s;
+}
+
+.ss-service-card:nth-child(8) {
+    transition-delay: .40s;
+}
+
+.ss-service-card:hover {
+    transform: translateY(-10px) !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .12);
+}
+
+.ss-service-icon {
+    transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.ss-service-card:hover .ss-service-icon {
+    transform: scale(1.15) rotate(-6deg);
+    box-shadow: 0 10px 25px rgba(138, 63, 5, .20);
+}
+
+.ss-service-link i {
+    transition: transform .3s ease;
+}
+
+.ss-service-link:hover i {
+    transform: translateX(6px);
+}
+
+
+/* ---------- SECURITY BAR ---------- */
+
+.ss-security-item {
+    transition: transform .35s ease;
+}
+
+    .ss-security-item:hover {
+        transform: translateY(-5px);
+    }
+
+.ss-security-icon {
+    transition: transform .4s ease;
+}
+
+.ss-security-item:hover .ss-security-icon {
+    transform: scale(1.12) rotate(5deg);
+}
+
+
+/* ---------- CONTACT ---------- */
+
+.contact-heading {
+    animation: contactHeading .9s ease both;
+}
+
+.contact-info,
+.contact-form-card {
+    transition: transform .4s ease, box-shadow .4s ease;
+}
+
+    .contact-info:hover,
+    .contact-form-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, .10);
+    }
+
+.contact-icon {
+    transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.contact-item:hover .contact-icon {
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 10px 25px rgba(138, 63, 5, .18);
+}
+
+
+/* ---------- CONTACT SOCIAL ---------- */
+
+.contact-social a {
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+}
+
+    .contact-social a:hover {
+        transform: translateY(-5px) scale(1.08);
+    }
+
+
+/* ---------- CTA ---------- */
+
+.hero-card {
+    animation: ctaReveal 1s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+    .hero-card:hover {
+        transform: translateY(-8px) !important;
+    }
+
+    .hero-card .btn {
+        transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+        .hero-card .btn:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+
+/* ---------- FOOTER ---------- */
+
+footer {
+    animation: footerReveal 1s ease both;
+}
+
+    footer a {
+        transition: transform .3s ease, color .3s ease;
+    }
+
+        footer a:hover {
+            transform: translateY(-3px);
+        }
+
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes navDrop {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes heroContentIn {
+    from {
+        opacity: 0;
+        transform: translateX(-55px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes heroBadgeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+@keyframes heroTitleIn {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+
+@keyframes heroTextIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes logoPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
+}
+
+
+@keyframes phoneFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-14px) rotate(1deg);
+    }
+}
+
+
+@keyframes circlePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
+}
+
+
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes aboutTitleReveal {
+    from {
+        opacity: 0;
+        transform: translateX(-35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes contactHeading {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes ctaReveal {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+@keyframes footerReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* 
+   REDUCED MOTION
+    */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
     }
 }
